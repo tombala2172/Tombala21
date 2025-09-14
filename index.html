@@ -156,1212 +156,1216 @@ const totalCards = 150;
 const totalBalls = 90;
 let drawn = [];
 
-// 🔥 Sabit 150 kart gömülü
+// 📌 Senin 150 kartın burada (tamamını koruyacağız)
 const cards = [
-  {
-    id: 1,
-    rows: [
-      [1, null, 23, null, 44, null, 61, null, 80],
-      [16, 26, null, null, 58, null, 74, 84, null],
-      [28, null, 49, 59, null, 71, null, 89, null]
-    ]
-  },
-  {
-    id: 2,
-    rows: [
-      [2, null, 24, null, 45, null, 62, null, 81],
-      [17, 27, null, null, 57, null, 73, 83, null],
-      [29, null, 48, 56, null, 72, null, 90, null] 
-    ]
-  },
-  {
-    id: 3,
-    rows: [
-      [3, null, 20, 33, null, null, 77, 83, null],
-      [10, null, 38, 41, null, 65, 79, null, null],
-      [18, 29, null, 45, 50, null, null, 86, null]
-    ]
-  },
-  {
-    id: 4,
-    rows: [
-      [4, 14, null, 32, null, 60, null, 82, null],
-      [17, 27, null, 49, 53, null, 74, null, null],
-      [8, null, 37, null, 66, 78, 85, null, null]
-    ]
-  },
-  {
-    id: 5,
-    rows: [
-      [5, null, 21, null, 47, null, 62, null, 81],
-      [11, 25, 30, null, 52, null, 72, null, null],
-      [15, null, 35, null, 55, 63, 75, null, null]
-    ]
-  },
-  {
-    id: 6,
-    rows: [
-      [6, null, 22, null, 42, 54, null, 76, null],
-      [12, null, 34, null, 57, 64, null, 88, null],
-      [9, null, 26, null, 43, null, 69, null, 90]
-    ]
-  },
-  {
-    id: 7,
-    rows: [
-      [4, null, null, 31, 40, null, 69, 74, null],
-      [7, null, 23, 37, null, 53, null, 79, null],
-      [13, 25, null, 47, null, 58, null, null, 87]
-    ]
-  },
-  {
-    id: 8,
-    rows: [
-      [1, null, 22, null, null, null, 61, 72, 83],
-      [17, null, 33, null, 49, null, 67, 73, null],
-      [8, 18, null, 35, null, 50, null, null, 85]
-    ]
-  },
-  {
-    id: 9,
-    rows: [
-      [2, null, 20, null, 36, null, null, 70, 84],
-      [16, null, null, 46, 51, null, 71, null, 86],
-      [9, null, 27, null, 38, null, 56, 66, null]
-    ]
-  },
-  {
-    id: 10,
-    rows: [
-      [10, null, 28, null, null, 52, 65, null, 80],
-      [5, null, null, 32, 41, null, 68, null, 81],
-      [19, 29, null, 44, null, null, 78, 82, null]
-    ]
-  },  
-  {
-    id: 11,
-    rows: [
-      [7, null, 23, null, 39, null, 60, 71, null],
-      [12, 26, null, 48, null, 64, null, 77, null],
-      [3, null, 33, null, 55, null, 68, null, 82]
-    ]
-  },
-  {
-    id: 12,
-    rows: [
-      [14, null, null, 35, 46, null, 70, 79, null],
-      [5, null, 25, null, 52, null, 67, 83, null],
-      [8, 18, null, 36, null, 58, null, null, 88]
-    ]
-  },
-  {
-    id: 13,
-    rows: [
-      [9, null, 29, null, 44, null, 63, null, 80],
-      [13, null, 32, 48, null, null, 74, null, 84],
-      [16, 27, null, 51, null, 65, null, 86, null]
-    ]
-  },
-  {
-    id: 14,
-    rows: [
-      [4, 15, null, 31, null, 53, null, 75, null],
-      [7, null, 20, null, 42, null, 66, null, 85],
-      [10, null, 28, 38, null, 59, null, 70, null]
-    ]
-  },
-  {
-    id: 15,
-    rows: [
-      [1, null, 24, null, 40, null, 69, null, 88],
-      [11, 21, null, 33, 47, null, 73, null, null],
-      [17, null, 30, null, 57, null, 78, null, 90]
-    ]
-  },
-  {
-    id: 16,
-    rows: [
-      [6, null, 22, null, 49, null, 65, 74, null],
-      [12, null, 27, null, 51, null, 76, null, 83],
-      [19, 29, null, 37, null, 55, null, null, 86]
-    ]
-  },
-  {
-    id: 17,
-    rows: [
-      [8, null, 20, null, 44, null, 67, null, 89],
-      [14, 23, null, 32, null, 50, null, 72, null],
-      [9, null, 35, 46, null, 61, null, 79, null]
-    ]
-  },
-  {
-    id: 18,
-    rows: [
-      [2, null, 26, null, 48, null, 70, null, 82],
-      [15, null, 30, null, 52, null, 73, null, 87],
-      [5, 18, null, 39, null, 58, null, 76, null]
-    ]
-  },
-  {
-    id: 19,
-    rows: [
-      [13, null, 24, 33, null, null, 62, null, 85],
-      [3, null, 29, 47, null, null, 74, null, 88],
-      [6, 19, null, 41, null, 59, null, 77, null]
-    ]
-  },
-  {
-    id: 20,
-    rows: [
-      [11, null, 25, null, 43, null, 68, null, 80],
-      [16, null, 34, null, 51, null, 75, null, 86],
-      [4, 17, null, 38, null, 54, null, 71, null]
-    ]
-  },
-  {
-    id: 21,
-    rows: [
-      [7, null, 28, null, 49, null, 64, 73, null],
-      [15, 22, null, 35, null, 56, null, 78, null],
-      [9, null, 30, null, 45, null, 60, null, 81]
-    ]
-  },
-  {
-    id: 22,
-    rows: [
-      [10, null, 21, null, 40, null, 69, null, 83],
-      [5, 14, null, 36, null, 53, null, 74, null],
-      [8, null, 27, 46, null, 57, null, 79, null]
-    ]
-  },
-  {
-    id: 23,
-    rows: [
-      [1, null, 24, null, 44, null, 62, null, 80],
-      [11, 26, null, 39, null, 55, null, 73, null],
-      [17, null, 30, null, 48, null, 66, null, 82]
-    ]
-  },
-  {
-    id: 24,
-    rows: [
-      [6, null, 29, null, 42, null, 65, null, 89],
-      [12, 20, null, 37, null, 58, null, 72, null],
-      [9, null, 33, null, 49, null, 60, null, 84]
-    ]
-  },
-  {
-    id: 25,
-    rows: [
-      [4, null, 23, null, 45, null, 61, null, 81],
-      [10, 28, null, 38, null, 56, null, 74, null],
-      [15, null, 34, null, 53, null, 67, null, 88]
-    ]
-  },
-  {
-    id: 26,
-    rows: [
-      [3, null, 21, null, 40, null, 63, null, 82],
-      [9, 17, null, 32, null, 50, null, 70, null],
-      [6, null, 25, null, 41, null, 68, null, 86]
-    ]
-  },
-  {
-    id: 27,
-    rows: [
-      [7, null, 22, null, 47, null, 64, null, 85],
-      [13, 19, null, 33, null, 51, null, 71, null],
-      [8, null, 26, null, 44, null, 60, null, 90]
-    ]
-  },
-  {
-    id: 28,
-    rows: [
-      [5, null, 20, null, 48, null, 67, null, 80],
-      [12, null, 30, null, 52, null, 74, null, 83],
-      [9, 16, null, 37, null, 56, null, 79, null]
-    ]
-  },
-  {
-    id: 29,
-    rows: [
-      [11, null, 23, null, 42, null, 65, null, 81],
-      [15, null, 27, null, 53, null, 70, null, 84],
-      [6, 19, null, 34, null, 58, null, 73, null]
-    ]
-  },
-  {
-    id: 30,
-    rows: [
-      [2, null, 25, null, 41, null, 66, null, 82],
-      [14, null, 31, null, 54, null, 71, null, 87],
-      [7, 20, null, 38, null, 59, null, 75, null]
-    ]
-  },
-  {
-    id: 31,
-    rows: [
-      [8, null, 29, null, 47, null, 68, null, 83],
-      [12, null, 35, null, 50, null, 72, null, 86],
-      [3, 18, null, 39, null, 55, null, 76, null]
-    ]
-  },
-  {
-    id: 32,
-    rows: [
-      [1, null, 24, null, 49, null, 60, null, 88],
-      [11, null, 30, null, 52, null, 69, null, 81],
-      [5, 14, null, 34, null, 57, null, 74, null]
-    ]
-  },
-  {
-    id: 33,
-    rows: [
-      [9, null, 28, null, 40, null, 63, null, 84],
-      [13, null, 31, null, 54, null, 71, null, 89],
-      [6, 17, null, 35, null, 58, null, 73, null]
-    ]
-  },
-  {
-    id: 34,
-    rows: [
-      [7, null, 21, null, 42, null, 64, null, 82],
-      [12, null, 32, null, 55, null, 70, null, 86],
-      [8, 16, null, 36, null, 59, null, 75, null]
-    ]
-  },
-  {
-    id: 35,
-    rows: [
-      [4, null, 27, null, 41, null, 62, null, 81],
-      [15, null, 33, null, 53, null, 67, null, 85],
-      [9, 18, null, 39, null, 56, null, 72, null]
-    ]
-  },
-  {
-    id: 36,
-    rows: [
-      [6, null, 22, null, 46, null, 61, null, 80],
-      [11, null, 29, null, 51, null, 66, null, 83],
-      [7, 13, null, 38, null, 57, null, 74, null]
-    ]
-  },
-  {
-    id: 37,
-    rows: [
-      [5, null, 23, null, 44, null, 68, null, 89],
-      [14, null, 30, null, 52, null, 73, null, 82],
-      [8, 19, null, 36, null, 59, null, 76, null]
-    ]
-  },
-  {
-    id: 38,
-    rows: [
-      [10, null, 21, null, 45, null, 60, null, 90],
-      [12, null, 26, null, 53, null, 71, null, 83],
-      [9, 18, null, 35, null, 58, null, 75, null]
-    ]
-  },
-  {
-    id: 39,
-    rows: [
-      [1, null, 24, null, 48, null, 62, null, 81],
-      [15, null, 28, null, 50, null, 69, null, 84],
-      [6, 13, null, 37, null, 55, null, 78, null]
-    ]
-  },
-  {
-    id: 40,
-    rows: [
-      [2, null, 20, null, 42, null, 67, null, 82],
-      [11, null, 31, null, 54, null, 70, null, 86],
-      [7, 16, null, 39, null, 59, null, 74, null]
-    ]
-  },
-  // 📌 Kart 41–100 burada devam ediyor...
-   {
-    id: 41,
-    rows: [
-      [5, null, 20, null, 46, null, 65, null, 82],
-      [13, 25, null, 37, null, 52, null, 76, 88],
-      [null, 29, null, 49, 53, null, 71, null, 90]
-    ]
-  },
-  {
-    id: 42,
-    rows: [
-      [8, null, 19, 33, null, 47, null, 64, 79],
-      [10, null, 22, null, 40, 51, null, 73, 87],
-      [15, 26, null, 36, null, 59, null, 74, null]
-    ]
-  },
-  {
-    id: 43,
-    rows: [
-      [2, null, 28, 39, null, 48, null, 66, 85],
-      [11, 23, null, 35, null, 57, null, 70, null],
-      [16, null, 29, null, 44, 50, null, 77, 86]
-    ]
-  },
-  {
-    id: 44,
-    rows: [
-      [6, null, 21, 34, null, 49, null, 68, 83],
-      [12, null, 27, null, 42, 55, null, 75, null],
-      [17, 24, null, 38, null, 54, null, 72, 89]
-    ]
-  },
-  {
-    id: 45,
-    rows: [
-      [1, null, 18, 32, null, 47, null, 65, 80],
-      [14, 22, null, 37, null, 53, null, 71, null],
-      [19, null, 26, null, 43, 56, null, 74, 84]
-    ]
-  },
-  {
-    id: 46,
-    rows: [
-      [7, null, 20, 36, null, 48, null, 67, 81],
-      [10, null, 25, null, 41, 58, null, 76, null],
-      [15, 27, null, 33, null, 52, null, 73, 86]
-    ]
-  },
-  {
-    id: 47,
-    rows: [
-      [9, null, 24, 35, null, 46, null, 62, 82],
-      [12, 29, null, 38, null, 50, null, 70, null],
-      [18, null, 21, null, 44, 59, null, 75, 87]
-    ]
-  },
-  {
-    id: 48,
-    rows: [
-      [3, null, 23, 39, null, 51, null, 69, 85],
-      [11, null, 26, null, 42, 53, null, 72, null],
-      [16, 28, null, 37, null, 55, null, 78, 88]
-    ]
-  },
-  {
-    id: 49,
-    rows: [
-      [4, null, 19, 30, null, 45, null, 63, 83],
-      [13, null, 22, null, 40, 54, null, 74, null],
-      [17, 25, null, 32, null, 57, null, 79, 89]
-    ]
-  },
-  {
-    id: 50,
-    rows: [
-      [8, null, 21, 34, null, 49, null, 66, 81],
-      [15, null, 27, null, 41, 52, null, 73, null],
-      [18, 23, null, 36, null, 58, null, 77, 90]
-    ]
-  },
-  {
-    id: 51,
-    rows: [
-      [6, null, 18, 33, null, 47, null, 62, 80],
-      [14, null, 25, null, 44, 56, null, 71, null],
-      [17, 28, null, 39, null, 59, null, 76, 88]
-    ]
-  },
-  {
-    id: 52,
-    rows: [
-      [2, null, 24, 32, null, 46, null, 65, 82],
-      [11, 23, null, 35, null, 50, null, 72, null],
-      [16, null, 29, null, 42, 53, null, 75, 86]
-    ]
-  },
-  {
-    id: 53,
-    rows: [
-      [5, null, 20, 30, null, 49, null, 64, 81],
-      [13, null, 27, null, 43, 55, null, 70, null],
-      [19, 22, null, 38, null, 58, null, 74, 89]
-    ]
-  },
-  {
-    id: 54,
-    rows: [
-      [7, null, 26, 34, null, 48, null, 67, 85],
-      [10, 21, null, 37, null, 54, null, 73, null],
-      [15, null, 28, null, 40, 57, null, 78, 87]
-    ]
-  },
-  {
-    id: 55,
-    rows: [
-      [9, null, 18, 36, null, 45, null, 61, 83],
-      [12, null, 22, null, 41, 52, null, 75, null],
-      [14, 27, null, 33, null, 56, null, 79, 88]
-    ]
-  },
-  {
-    id: 56,
-    rows: [
-      [1, null, 19, 30, null, 47, null, 62, 80],
-      [17, 23, null, 39, null, 55, null, 72, null],
-      [20, null, 29, null, 42, 59, null, 74, 90]
-    ]
-  },
-  {
-    id: 57,
-    rows: [
-      [3, null, 21, 31, null, 46, null, 63, 82],
-      [11, null, 24, null, 43, 50, null, 70, null],
-      [16, 25, null, 38, null, 58, null, 76, 86]
-    ]
-  },
-  {
-    id: 58,
-    rows: [
-      [8, null, 22, 35, null, 49, null, 66, 84],
-      [12, 26, null, 37, null, 52, null, 71, null],
-      [19, null, 29, null, 45, 57, null, 77, 89]
-    ]
-  },
-  {
-    id: 59,
-    rows: [
-      [4, null, 23, 33, null, 48, null, 65, 81],
-      [14, null, 27, null, 41, 53, null, 73, null],
-      [18, 25, null, 39, null, 56, null, 78, 87]
-    ]
-  },
-  {
-    id: 60,
-    rows: [
-      [6, null, 19, 34, null, 45, null, 64, 83],
-      [13, 21, null, 36, null, 50, null, 70, null],
-      [17, null, 28, null, 42, 55, null, 79, 90]
-    ]
-  },
-  {
-    id: 61,
-    rows: [
-      [7, null, 20, 32, null, 49, null, 63, 80],
-      [15, null, 26, null, 43, 52, null, 71, null],
-      [18, 22, null, 35, null, 58, null, 76, 84]
-    ]
-  },
-  {
-    id: 62,
-    rows: [
-      [2, null, 24, 31, null, 47, null, 61, 82],
-      [12, 25, null, 38, null, 54, null, 70, null],
-      [19, null, 29, null, 41, 57, null, 75, 89]
-    ]
-  },
-  {
-    id: 63,
-    rows: [
-      [5, null, 21, 30, null, 48, null, 62, 81],
-      [13, null, 27, null, 42, 55, null, 72, null],
-      [16, 23, null, 39, null, 59, null, 74, 88]
-    ]
-  },
-  {
-    id: 64,
-    rows: [
-      [9, null, 18, 36, null, 45, null, 65, 84],
-      [14, 22, null, 33, null, 53, null, 71, null],
-      [17, null, 28, null, 44, 56, null, 73, 87]
-    ]
-  },
-  {
-    id: 65,
-    rows: [
-      [6, null, 20, 34, null, 49, null, 66, 85],
-      [11, null, 26, null, 40, 52, null, 70, null],
-      [18, 24, null, 37, null, 55, null, 77, 89]
-    ]
-  },
-  {
-    id: 66,
-    rows: [
-      [3, null, 19, 31, null, 46, null, 61, 80],
-      [12, 23, null, 38, null, 50, null, 71, null],
-      [16, null, 29, null, 42, 58, null, 74, 86]
-    ]
-  },
-  {
-    id: 67,
-    rows: [
-      [7, null, 22, 35, null, 47, null, 64, 83],
-      [14, null, 27, null, 44, 54, null, 72, null],
-      [19, 21, null, 39, null, 59, null, 75, 87]
-    ]
-  },
-  {
-    id: 68,
-    rows: [
-      [8, null, 20, 33, null, 48, null, 65, 82],
-      [13, 25, null, 36, null, 51, null, 73, null],
-      [18, null, 29, null, 43, 57, null, 76, 90]
-    ]
-  },
-  {
-    id: 69,
-    rows: [
-      [4, null, 24, 32, null, 45, null, 62, 81],
-      [15, null, 28, null, 40, 53, null, 70, null],
-      [17, 22, null, 37, null, 56, null, 74, 86]
-    ]
-  },
-  {
-    id: 70,
-    rows: [
-      [6, null, 18, 34, null, 47, null, 63, 80],
-      [12, 21, null, 39, null, 55, null, 71, null],
-      [19, null, 25, null, 41, 58, null, 77, 88]
-    ]
-  },
-  {
-    id: 71,
-    rows: [
-      [2, null, 23, 30, null, 49, null, 61, 82],
-      [13, 26, null, 38, null, 50, null, 70, null],
-      [18, null, 29, null, 42, 59, null, 74, 89]
-    ]
-  },
-  {
-    id: 72,
-    rows: [
-      [7, null, 19, 31, null, 45, null, 62, 83],
-      [11, 24, null, 36, null, 53, null, 71, null],
-      [16, null, 27, null, 40, 56, null, 75, 86]
-    ]
-  },
-  {
-    id: 73,
-    rows: [
-      [9, null, 21, 33, null, 48, null, 64, 85],
-      [14, null, 25, null, 41, 52, null, 73, null],
-      [17, 22, null, 39, null, 55, null, 78, 90]
-    ]
-  },
-  {
-    id: 74,
-    rows: [
-      [5, null, 20, 30, null, 46, null, 63, 82],
-      [12, 23, null, 35, null, 51, null, 70, null],
-      [18, null, 29, null, 44, 54, null, 74, 87]
-    ]
-  },
-  {
-    id: 75,
-    rows: [
-      [6, null, 24, 34, null, 49, null, 65, 81],
-      [13, null, 27, null, 40, 52, null, 72, null],
-      [19, 25, null, 38, null, 57, null, 77, 86]
-    ]
-  },
-  {
-    id: 76,
-    rows: [
-      [8, null, 22, 31, null, 45, null, 61, 80],
-      [15, 21, null, 39, null, 53, null, 71, null],
-      [17, null, 28, null, 42, 56, null, 75, 88]
-    ]
-  },
-  {
-    id: 77,
-    rows: [
-      [7, null, 23, 33, null, 48, null, 66, 83],
-      [12, null, 26, null, 44, 50, null, 70, null],
-      [18, 24, null, 36, null, 58, null, 74, 89]
-    ]
-  },
-  {
-    id: 78,
-    rows: [
-      [9, null, 20, 32, null, 47, null, 63, 82],
-      [14, 25, null, 38, null, 54, null, 72, null],
-      [19, null, 29, null, 41, 55, null, 76, 87]
-    ]
-  },
-  {
-    id: 79,
-    rows: [
-      [3, null, 21, 30, null, 46, null, 62, 84],
-      [11, null, 27, null, 43, 52, null, 71, null],
-      [16, 22, null, 39, null, 57, null, 75, 88]
-    ]
-  },
-  {
-    id: 80,
-    rows: [
-      [5, null, 24, 34, null, 49, null, 65, 85],
-      [13, 23, null, 37, null, 50, null, 70, null],
-      [17, null, 29, null, 42, 56, null, 73, 90]
-    ]
-  },
-  {
-    id: 81,
-    rows: [
-      [6, null, 20, 31, null, 45, null, 63, 80],
-      [12, null, 26, null, 39, 53, null, 71, null],
-      [18, 22, null, 35, null, 55, null, 74, 87]
-    ]
-  },
-  {
-    id: 82,
-    rows: [
-      [8, null, 19, 33, null, 47, null, 61, 82],
-      [15, 21, null, 38, null, 51, null, 73, null],
-      [19, null, 28, null, 44, 59, null, 75, 86]
-    ]
-  },
-  {
-    id: 83,
-    rows: [
-      [7, null, 24, 30, null, 48, null, 62, 83],
-      [11, null, 25, null, 42, 54, null, 72, null],
-      [17, 23, null, 37, null, 56, null, 76, 89]
-    ]
-  },
-  {
-    id: 84,
-    rows: [
-      [9, null, 22, 34, null, 46, null, 64, 84],
-      [13, 26, null, 36, null, 52, null, 71, null],
-      [18, null, 28, null, 41, 58, null, 77, 88]
-    ]
-  },
-  {
-    id: 85,
-    rows: [
-      [4, null, 20, 32, null, 47, null, 61, 81],
-      [12, null, 24, null, 40, 55, null, 73, null],
-      [16, 25, null, 38, null, 59, null, 74, 87]
-    ]
-  },
-    {
-    id: 86,
-    rows: [
-      [5, null, 20, null, 46, null, 63, null, 82],
-      [13, null, 35, null, 57, null, 70, 85, null],
-      [29, null, 48, 59, null, 71, null, 90, null]
-    ]
-  },
-  {
-    id: 87,
-    rows: [
-      [6, null, 25, null, 47, null, 62, null, 80],
-      [14, 26, null, null, 58, null, 74, 83, null],
-      [28, null, 49, 60, null, 72, null, 89, null]
-    ]
-  },
-  {
-    id: 88,
-    rows: [
-      [7, null, 23, null, 44, null, 61, null, 81],
-      [17, null, 33, null, 56, null, 73, 84, null],
-      [30, null, 50, 57, null, 70, null, 88, null]
-    ]
-  },
-  {
-    id: 89,
-    rows: [
-      [1, null, 21, null, 42, null, 65, null, 83],
-      [18, 29, null, null, 59, null, 71, 86, null],
-      [31, null, 48, 55, null, 75, null, 87, null]
-    ]
-  },
-  {
-    id: 90,
-    rows: [
-      [9, null, 28, null, 49, null, 60, null, 80],
-      [16, 25, null, null, 58, null, 73, 82, null],
-      [27, null, 47, 56, null, 74, null, 90, null]
-    ]
-  },
-  {
-    id: 91,
-    rows: [
-      [4, null, 22, null, 41, null, 66, null, 84],
-      [12, 27, null, null, 55, null, 72, 87, null],
-      [30, null, 51, 59, null, 77, null, 88, null]
-    ]
-  },
-  {
-    id: 92,
-    rows: [
-      [8, null, 24, null, 40, null, 64, null, 85],
-      [19, null, 36, null, 57, null, 76, 89, null],
-      [28, null, 50, 60, null, 79, null, 90, null]
-    ]
-  },
-  {
-    id: 93,
-    rows: [
-      [2, null, 26, null, 43, null, 67, null, 82],
-      [11, 23, null, null, 54, null, 70, 83, null],
-      [29, null, 45, 55, null, 74, null, 88, null]
-    ]
-  },
-  {
-    id: 94,
-    rows: [
-      [6, null, 20, null, 47, null, 61, null, 86],
-      [15, 25, null, null, 52, null, 72, 89, null],
-      [30, null, 48, 58, null, 73, null, 90, null]
-    ]
-  },
-  {
-    id: 95,
-    rows: [
-      [7, null, 22, null, 46, null, 63, null, 81],
-      [13, 28, null, null, 53, null, 71, 87, null],
-      [27, null, 49, 56, null, 76, null, 88, null]
-    ]
-  },
-  {
-    id: 96,
-    rows: [
-      [9, null, 21, null, 45, null, 65, null, 80],
-      [17, null, 34, null, 59, null, 75, 84, null],
-      [26, null, 48, 57, null, 77, null, 89, null]
-    ]
-  },
-  {
-    id: 97,
-    rows: [
-      [3, null, 23, null, 41, null, 62, null, 83],
-      [12, 26, null, null, 55, null, 73, 86, null],
-      [31, null, 47, 58, null, 78, null, 87, null]
-    ]
-  },
-  {
-    id: 98,
-    rows: [
-      [5, null, 27, null, 40, null, 68, null, 82],
-      [14, null, 36, null, 56, null, 74, 85, null],
-      [28, null, 51, 59, null, 79, null, 88, null]
-    ]
-  },
-  {
-    id: 99,
-    rows: [
-      [1, null, 24, null, 42, null, 64, null, 84],
-      [18, 29, null, null, 57, null, 70, 83, null],
-      [30, null, 49, 60, null, 75, null, 90, null]
-    ]
-  },
-  {
-    id: 100,
-    rows: [
-      [2, null, 25, null, 44, null, 66, null, 85],
-      [11, null, 33, null, 58, null, 71, 86, null],
-      [27, null, 50, 55, null, 76, null, 89, null]
-    ]
-  },
-  {
-    id: 101,
-    rows: [
-      [6, null, 28, null, 49, null, 63, null, 80],
-      [12, 23, null, null, 52, null, 74, 83, null],
-      [31, null, 46, 56, null, 72, null, 88, null]
-    ]
-  },
-  {
-    id: 102,
-    rows: [
-      [8, null, 22, null, 41, null, 65, null, 82],
-      [15, 24, null, null, 59, null, 70, 85, null],
-      [29, null, 47, 55, null, 73, null, 87, null]
-    ]
-  },
-  {
-    id: 103,
-    rows: [
-      [9, null, 21, null, 43, null, 62, null, 84],
-      [17, 25, null, null, 54, null, 71, 89, null],
-      [28, null, 48, 58, null, 74, null, 90, null]
-    ]
-  },
-  {
-    id: 104,
-    rows: [
-      [5, null, 27, null, 45, null, 60, null, 86],
-      [13, null, 32, null, 56, null, 75, 83, null],
-      [30, null, 49, 57, null, 76, null, 88, null]
-    ]
-  },
-  {
-    id: 105,
-    rows: [
-      [7, null, 23, null, 40, null, 67, null, 81],
-      [16, 29, null, null, 53, null, 72, 84, null],
-      [27, null, 50, 59, null, 78, null, 87, null]
-    ]
-  },
-  {
-    id: 106,
-    rows: [
-      [3, null, 20, null, 42, null, 66, null, 85],
-      [14, null, 35, null, 58, null, 74, 82, null],
-      [28, null, 46, 60, null, 79, null, 90, null]
-    ]
-  },
-  {
-    id: 107,
-    rows: [
-      [4, null, 24, null, 47, null, 61, null, 83],
-      [19, 26, null, null, 52, null, 71, 86, null],
-      [29, null, 48, 55, null, 77, null, 89, null]
-    ]
-  },
-  {
-    id: 108,
-    rows: [
-      [2, null, 22, null, 44, null, 64, null, 80],
-      [18, null, 34, null, 57, null, 70, 84, null],
-      [30, null, 49, 56, null, 75, null, 88, null]
-    ]
-  },
-  {
-    id: 109,
-    rows: [
-      [9, null, 21, null, 41, null, 68, null, 82],
-      [11, 28, null, null, 59, null, 72, 85, null],
-      [31, null, 47, 58, null, 73, null, 87, null]
-    ]
-  },
-  {
-    id: 110,
-    rows: [
-      [8, null, 23, null, 40, null, 65, null, 81],
-      [13, null, 33, null, 54, null, 71, 86, null],
-      [27, null, 48, 55, null, 74, null, 90, null]
-    ]
-  },
-  {
-    id: 111,
-    rows: [
-      [7, null, 25, null, 43, null, 60, null, 83],
-      [15, 27, null, null, 58, null, 70, 88, null],
-      [29, null, 49, 56, null, 76, null, 89, null]
-    ]
-  },
-  {
-    id: 112,
-    rows: [
-      [6, null, 26, null, 46, null, 67, null, 84],
-      [12, null, 31, null, 52, null, 73, 85, null],
-      [28, null, 50, 57, null, 75, null, 87, null]
-    ]
-  },
-  {
-    id: 113,
-    rows: [
-      [4, null, 28, null, 49, null, 63, null, 86],
-      [17, 22, null, null, 53, null, 72, 89, null],
-      [30, null, 46, 55, null, 74, null, 90, null]
-    ]
-  },
-  {
-    id: 114,
-    rows: [
-      [5, null, 24, null, 47, null, 62, null, 82],
-      [11, 25, null, null, 56, null, 71, 83, null],
-      [29, null, 45, 59, null, 73, null, 88, null]
-    ]
-  },
-  {
-    id: 115,
-    rows: [
-      [2, null, 27, null, 42, null, 66, null, 85],
-      [18, null, 32, null, 58, null, 74, 84, null],
-      [28, null, 48, 57, null, 76, null, 87, null]
-    ]
-  },
-  {
-    id: 116,
-    rows: [
-      [3, null, 23, null, 45, null, 61, null, 80],
-      [13, 29, null, null, 59, null, 70, 86, null],
-      [30, null, 50, 55, null, 72, null, 89, null]
-    ]
-  },
-  {
-    id: 117,
-    rows: [
-      [9, null, 21, null, 40, null, 64, null, 81],
-      [15, 27, null, null, 54, null, 73, 88, null],
-      [26, null, 48, 56, null, 75, null, 90, null]
-    ]
-  },
-  {
-    id: 118,
-    rows: [
-      [8, null, 25, null, 41, null, 68, null, 83],
-      [14, null, 35, null, 57, null, 70, 87, null],
-      [29, null, 49, 59, null, 74, null, 89, null]
-    ]
-  },
-  {
-    id: 119,
-    rows: [
-      [6, null, 22, null, 46, null, 65, null, 82],
-      [12, 24, null, null, 55, null, 71, 84, null],
-      [30, null, 47, 58, null, 77, null, 88, null]
-    ]
-  },
-  {
-    id: 120,
-    rows: [
-      [7, null, 20, null, 44, null, 60, null, 85],
-      [19, null, 31, null, 52, null, 72, 86, null],
-      [28, null, 45, 56, null, 78, null, 90, null]
-    ]
-  },
-  {
-    id: 121,
-    rows: [
-      [2, null, 28, null, 49, null, 62, null, 80],
-      [16, 25, null, null, 53, null, 74, 83, null],
-      [29, null, 50, 57, null, 73, null, 88, null]
-    ]
-  },
-  {
-    id: 122,
-    rows: [
-      [5, null, 24, null, 40, null, 66, null, 81],
-      [13, null, 33, null, 54, null, 70, 85, null],
-      [30, null, 47, 55, null, 77, null, 89, null]
-    ]
-  },
-  {
-    id: 123,
-    rows: [
-      [9, null, 23, null, 41, null, 61, null, 82],
-      [15, 26, null, null, 59, null, 73, 84, null],
-      [28, null, 46, 60, null, 74, null, 90, null]
-    ]
-  },
-  {
-    id: 124,
-    rows: [
-      [4, null, 22, null, 42, null, 67, null, 83],
-      [17, 29, null, null, 52, null, 72, 87, null],
-      [27, null, 49, 56, null, 76, null, 88, null]
-    ]
-  },
-  {
-    id: 125,
-    rows: [
-      [6, null, 26, null, 40, null, 64, null, 80],
-      [12, 25, null, null, 53, null, 71, 86, null],
-      [31, null, 48, 58, null, 75, null, 87, null]
-    ]
-  },
-  {
-    id: 126,
-    rows: [
-      [7, null, 20, null, 43, null, 60, null, 85],
-      [11, null, 36, null, 55, null, 70, 83, null],
-      [28, null, 47, 59, null, 74, null, 90, null]
-    ]
-  },
-  {
-    id: 127,
-    rows: [
-      [8, null, 23, null, 41, null, 62, null, 81],
-      [14, 29, null, null, 57, null, 72, 84, null],
-      [30, null, 45, 56, null, 73, null, 88, null]
-    ]
-  },
-  {
-    id: 128,
-    rows: [
-      [3, null, 28, null, 40, null, 67, null, 82],
-      [19, null, 35, null, 59, null, 75, 86, null],
-      [27, null, 49, 55, null, 78, null, 87, null]
-    ]
-  },
-  {
-    id: 129,
-    rows: [
-      [9, null, 21, null, 42, null, 63, null, 84],
-      [16, 24, null, null, 58, null, 71, 85, null],
-      [28, null, 46, 57, null, 76, null, 90, null]
-    ]
-  },
-  {
-    id: 130,
-    rows: [
-      [2, null, 26, null, 47, null, 65, null, 83],
-      [18, 29, null, null, 56, null, 70, 88, null],
-      [31, null, 48, 60, null, 77, null, 89, null]
-    ]
-  },
-  {
-    id: 131,
-    rows: [
-      [6, null, 25, null, 45, null, 61, null, 82],
-      [13, null, 31, null, 53, null, 73, 87, null],
-      [29, null, 49, 59, null, 75, null, 90, null]
-    ]
-  },
-  {
-    id: 132,
-    rows: [
-      [7, null, 27, null, 41, null, 66, null, 81],
-      [15, 23, null, null, 52, null, 74, 83, null],
-      [30, null, 50, 58, null, 76, null, 88, null]
-    ]
-  },
-  {
-    id: 133,
-    rows: [
-      [5, null, 22, null, 46, null, 64, null, 80],
-      [11, 28, null, null, 57, null, 71, 85, null],
-      [27, null, 47, 55, null, 72, null, 87, null]
-    ]
-  },
-  {
-    id: 134,
-    rows: [
-      [8, null, 20, null, 44, null, 62, null, 84],
-      [19, null, 34, null, 56, null, 73, 86, null],
-      [29, null, 45, 60, null, 75, null, 89, null]
-    ]
-  },
-  {
-    id: 135,
-    rows: [
-      [3, null, 21, null, 42, null, 68, null, 83],
-      [12, 26, null, null, 59, null, 74, 88, null],
-      [28, null, 46, 55, null, 70, null, 87, null]
-    ]
-  },
-  {
-    id: 136,
-    rows: [
-      [6, null, 24, null, 40, null, 61, null, 82],
-      [14, null, 33, null, 55, null, 72, 85, null],
-      [30, null, 49, 56, null, 71, null, 89, null]
-    ]
-  },
-  {
-    id: 137,
-    rows: [
-      [7, null, 25, null, 43, null, 60, null, 81],
-      [13, 29, null, null, 54, null, 73, 84, null],
-      [31, null, 47, 58, null, 77, null, 90, null]
-    ]
-  },
-  {
-    id: 138,
-    rows: [
-      [9, null, 23, null, 41, null, 65, null, 80],
-      [15, 27, null, null, 53, null, 70, 86, null],
-      [28, null, 45, 59, null, 74, null, 88, null]
-    ]
-  },
-  {
-    id: 139,
-    rows: [
-      [2, null, 26, null, 47, null, 67, null, 82],
-      [17, null, 35, null, 56, null, 71, 83, null],
-      [29, null, 48, 57, null, 76, null, 89, null]
-    ]
-  },
-  {
-    id: 140,
-    rows: [
-      [5, null, 20, null, 46, null, 64, null, 84],
-      [11, 24, null, null, 58, null, 72, 85, null],
-      [30, null, 50, 55, null, 73, null, 87, null]
-    ]
-  },
-  {
-    id: 141,
-    rows: [
-      [7, null, 22, null, 40, null, 62, null, 83],
-      [18, 27, null, null, 59, null, 74, 88, null],
-      [28, null, 47, 60, null, 70, null, 90, null]
-    ]
-  },
-  {
-    id: 142,
-    rows: [
-      [9, null, 21, null, 42, null, 61, null, 81],
-      [14, null, 36, null, 57, null, 73, 86, null],
-      [27, null, 49, 56, null, 75, null, 89, null]
-    ]
-  },
-  {
-    id: 143,
-    rows: [
-      [6, null, 28, null, 41, null, 66, null, 82],
-      [12, 23, null, null, 55, null, 71, 84, null],
-      [31, null, 50, 59, null, 74, null, 88, null]
-    ]
-  },
-  {
-    id: 144,
-    rows: [
-      [8, null, 25, null, 45, null, 63, null, 80],
-      [15, null, 31, null, 59, null, 72, 83, null],
-      [30, null, 46, 55, null, 76, null, 89, null]
-    ]
-  },
-  {
-    id: 145,
-    rows: [
-      [4, null, 23, null, 43, null, 65, null, 85],
-      [17, 29, null, null, 56, null, 70, 87, null],
-      [28, null, 48, 57, null, 74, null, 90, null]
-    ]
-  },
-  {
-    id: 146,
-    rows: [
-      [2, null, 20, null, 40, null, 60, null, 82],
-      [19, null, 34, null, 58, null, 71, 84, null],
-      [27, null, 47, 55, null, 73, null, 88, null]
-    ]
-  },
-  {
-    id: 147,
-    rows: [
-      [5, null, 26, null, 42, null, 64, null, 81],
-      [13, 24, null, null, 53, null, 70, 85, null],
-      [31, null, 49, 56, null, 77, null, 89, null]
-    ]
-  },
-  {
-    id: 148,
-    rows: [
-      [6, null, 28, null, 41, null, 67, null, 83],
-      [15, null, 35, null, 54, null, 74, 86, null],
-      [29, null, 48, 60, null, 72, null, 90, null]
-    ]
-  },
-  {
-    id: 149,
-    rows: [
-      [7, null, 21, null, 46, null, 62, null, 80],
-      [11, 27, null, null, 59, null, 73, 84, null],
-      [28, null, 45, 58, null, 75, null, 88, null]
-    ]
-  },
-  {
-    id: 150,
-    rows: [
-      [9, null, 23, null, 44, null, 65, null, 82],
-      [16, null, 33, null, 57, null, 70, 87, null],
-      [30, null, 47, 55, null, 76, null, 89, null]
-    ]
-  }
+{
+  id: 1,
+  rows: [
+    [1, null, 23, null, 44, null, 61, null, 80],
+    [null, 16, 26, null, null, 58, null, 74, 84],
+    [null, null, 28, null, 49, 59, null, 71, 89]
+  ]
+},
+{
+  id: 2,
+  rows: [
+    [2, null, 24, 31, null, 51, null, 70, null],
+    [null, 13, null, 39, 46, null, 67, 73, null],
+    [7, 19, null, null, 48, 56, null, null, 87]
+  ]
+},
+{
+  id: 3,
+  rows: [
+    [3, null, 20, 33, null, null, null, 77, 83],
+    [null, 10, null, 38, 41, null, 65, null, 79],
+    [null, 18, 29, null, 45, 50, null, null, 86]
+  ]
+},
+{
+  id: 4,
+  rows: [
+    [4, 14, null, 32, null, null, 60, null, 82],
+    [null, 17, 27, null, 49, 53, null, 74, null],
+    [8, null, 37, null, null, 66, 78, 85, null]
+  ]
+},
+{
+  id: 5,
+  rows: [
+    [5, null, 21, null, 47, null, 62, null, 81],
+    [null, 11, 25, 30, null, 52, null, 72, null],
+    [null, 15, null, 35, null, 55, 63, 75, null]
+  ]
+},
+{
+  id: 6,
+  rows: [
+    [6, null, 22, null, 42, null, 54, null, 76],
+    [null, 12, null, 34, null, 57, null, 64, 88],
+    [9, null, 26, null, 43, null, 69, null, 90]
+  ]
+},
+{
+  id: 7,
+  rows: [
+    [4, null, null, 31, 40, null, 69, 74, null],
+    [7, null, 23, null, 37, null, 53, null, 79],
+    [null, 13, null, 25, null, 47, null, 58, null, 87]
+  ]
+},
+{
+  id: 8,
+  rows: [
+    [1, null, 22, null, null, null, 61, 72, 83],
+    [null, 17, null, 33, null, 49, null, 67, 73],
+    [8, 18, null, 35, null, 50, null, null, 85]
+  ]
+},
+{
+  id: 9,
+  rows: [
+    [2, null, 20, 36, null, null, null, 70, 84],
+    [null, 16, null, null, 46, 51, null, 71, 86],
+    [9, null, 27, 38, null, 56, null, 66, null]
+  ]
+},
+{
+  id: 10,
+  rows: [
+    [null, 10, 28, null, null, 52, 65, null, 80],
+    [5, null, null, 32, 41, null, 68, null, 81],
+    [null, 19, 29, null, 44, null, null, 78, 82]
+  ]
+},
+{
+  id: 11,
+  rows: [
+    [null, 11, null, 21, null, 45, null, 62, 88],
+    [null, 14, null, 30, null, 48, 54, null, 77],
+    [3, null, 24, null, null, 57, 63, null, 90]
+  ]
+},
+{
+  id: 12,
+  rows: [
+    [null, 12, null, 34, null, 42, null, 55, 75],
+    [6, null, null, 43, null, 59, 60, null, 89],
+    [null, 15, 26, null, 39, null, null, 64, 76]
+  ]
+},
+{
+  id: 13,
+  rows: [
+    [null, 10, null, 31, null, 54, 63, null, 82],
+    [3, 19, null, null, 40, null, 67, null, 74],
+    [null, null, 28, null, 45, 55, null, 75, 90]
+  ]
+},
+{
+  id: 14,
+  rows: [
+    [null, null, 20, 33, null, 56, null, 65, 85],
+    [4, null, 12, null, 38, null, null, 68, 71],
+    [9, null, 26, null, 47, 59, null, null, 88]
+  ]
+},
+{
+  id: 15,
+  rows: [
+    [null, null, 21, 30, null, 50, null, 73, 84],
+    [5, null, 11, null, 34, null, 42, 61, null],
+    [null, 18, null, 37, null, 43, null, 62, 89]
+  ]
+},
+{
+  id: 16,
+  rows: [
+    [null, null, 22, 36, null, 52, null, 76, 80],
+    [2, null, 13, null, null, 41, null, 60, 77],
+    [7, 17, 27, null, 46, null, null, null, 81]
+  ]
+},
+{
+  id: 17,
+  rows: [
+    [8, 15, null, 35, null, 57, null, 72, null],
+    [null, 16, 29, null, 48, null, null, 78, 87],
+    [null, null, 23, 32, null, 51, null, 64, 83]
+  ]
+},
+{
+  id: 18,
+  rows: [
+    [1, 14, null, 39, null, 58, null, 70, null],
+    [null, null, 24, null, 44, 53, null, 66, 86],
+    [6, null, 25, null, 49, null, 69, null, 79]
+  ]
+},
+{
+  id: 19,
+  rows: [
+    [null, 10, null, 25, null, 45, null, 62, 75],
+    [7, null, null, 36, 47, null, 69, null, 84],
+    [null, 13, null, 38, null, 57, null, 79, 89]
+  ]
+},
+{
+  id: 20,
+  rows: [
+    [1, null, null, 33, null, 49, null, 67, 81],
+    [null, 14, 26, null, 48, null, 65, null, 77],
+    [5, null, 28, null, 37, null, 59, null, 78]
+  ]
+},
+{
+  id: 21,
+  rows: [
+    [2, null, null, 32, null, 53, null, 61, 83],
+    [null, 11, 21, null, 41, null, 50, null, 80],
+    [9, 15, null, null, 46, null, 58, null, 74]
+  ]
+},
+{
+  id: 22,
+  rows: [
+    [3, null, 22, null, null, 54, null, 66, 88],
+    [null, 16, null, 35, null, 42, null, 60, 87],
+    [8, null, 29, null, 44, null, 56, null, 70]
+  ]
+},
+{
+  id: 23,
+  rows: [
+    [4, null, 24, 31, null, 55, null, 71, null],
+    [null, 17, 20, null, null, 43, null, 64, 85],
+    [6, 19, null, 34, null, null, 73, null, 90]
+  ]
+},
+{
+  id: 24,
+  rows: [
+    [null, 12, 23, null, null, 51, null, 72, 82],
+    [null, 18, null, 30, null, 40, null, 63, 76],
+    [null, null, 27, null, 39, null, 52, 68, 86]
+  ]
+},
+{
+  id: 25,
+  rows: [
+    [null, null, 22, null, 40, null, 56, null, 70],
+    [8, null, 11, null, 38, null, null, 68, 83],
+    [null, 15, 25, null, 39, null, 59, null, 79]
+  ]
+},
+{
+  id: 26,
+  rows: [
+    [5, null, 26, null, null, 55, null, 77, 84],
+    [null, null, 23, null, 48, null, 62, 75, 82],
+    [null, null, null, 33, null, 57, null, 65, 78, 89]
+  ]
+},
+{
+  id: 27,
+  rows: [
+    [1, null, 16, null, 34, null, 49, null, 69],
+    [6, null, 19, 27, null, null, 54, null, 75],
+    [null, null, 24, null, 44, null, 51, null, 60, 85]
+  ]
+},
+{
+  id: 28,
+  rows: [
+    [null, null, 21, null, 31, null, 63, 74, 81],
+    [2, 10, 28, 35, null, 58, null, null, null],
+    [7, 12, null, 36, null, null, 64, null, 86]
+  ]
+},
+{
+  id: 29,
+  rows: [
+    [3, 13, 29, null, 43, null, 67, null, null],
+    [null, null, 20, null, 41, null, 61, 71, 90],
+    [9, 17, null, 32, null, 45, null, null, 72]
+  ]
+},
+{
+  id: 30,
+  rows: [
+    [null, null, null, 30, null, 42, null, 50, 73, 87],
+    [4, null, 14, null, 37, null, 46, null, 52, null],
+    [null, 18, null, null, 47, null, 53, null, 66, 88]
+  ]
+},
+{
+  id: 31,
+  rows: [
+    [null, null, null, 30, null, 42, null, 64, 71, 81],
+    [6, null, 16, null, 24, null, 47, null, 66, null],
+    [null, 19, null, 31, null, 57, null, 76, 90]
+  ]
+},
+{
+  id: 32,
+  rows: [
+    [null, null, null, 32, null, 50, null, 60, 74, 84],
+    [1, null, 20, null, 43, null, 51, null, 86, null],
+    [9, null, 27, null, 45, null, 53, null, 61, null]
+  ]
+},
+{
+  id: 33,
+  rows: [
+    [null, null, null, 33, null, 46, null, 62, null, 78, 80],
+    [3, null, 11, null, 22, null, null, 58, 68, null],
+    [null, 15, null, 25, null, 37, null, null, null, 79, 88]
+  ]
+},
+{
+  id: 34,
+  rows: [
+    [4, 10, 21, null, null, 59, null, null, 83],
+    [null, null, null, 34, null, 40, null, 56, null, 63, 77],
+    [7, 12, null, 26, null, 39, null, null, 65, null]
+  ]
+},
+{
+  id: 35,
+  rows: [
+    [2, 13, 28, null, 48, null, null, 73, null],
+    [5, 17, null, 38, null, 55, null, null, 87],
+    [null, null, null, 35, null, 41, null, 54, null, 72, 82]
+  ]
+},
+{
+  id: 36,
+  rows: [
+    [null, null, null, 36, null, 44, null, 67, null, 70, 85],
+    [8, null, 14, null, 23, null, 49, null, null, 89],
+    [null, 18, null, 29, null, null, 52, null, 69, null, 75]
+  ]
+},
+{
+  id: 37,
+  rows: [
+    [null, null, null, 33, null, 46, null, 61, null, 72, 83],
+    [1, null, 14, null, 22, null, 49, null, null, 73],
+    [5, null, 26, null, 37, null, 59, null, 65, null]
+  ]
+},
+{
+  id: 38,
+  rows: [
+    [null, null, null, 32, null, 45, null, 62, null, 75, 84],
+    [null, 13, null, 25, null, 47, null, 57, null, 69, null],
+    [7, null, 16, null, 38, null, null, null, 78, 89]
+  ]
+},
+{
+  id: 39,
+  rows: [
+    [null, null, null, 36, null, 50, null, 63, null, 74, 82],
+    [null, 12, null, 23, null, 39, null, null, 68, 76],
+    [9, null, 18, null, 24, null, null, 51, null, 86]
+  ]
+},
+{
+  id: 40,
+  rows: [
+    [null, null, null, null, 40, null, 52, null, 67, 78, 80],
+    [null, 11, null, 21, null, 30, null, 44, null, 53, null],
+    [2, null, 17, null, 29, null, 48, null, null, null, 81]
+  ]
+},
+{
+  id: 41,
+  rows: [
+    [null, null, null, null, 41, null, 54, null, 60, null, 71, 90],
+    [3, null, 19, null, 31, null, 43, null, 66, null, null],
+    [8, null, 20, null, 35, null, 58, null, 77, null]
+  ]
+},
+{
+  id: 42,
+  rows: [
+    [4, null, 15, null, 27, null, 34, null, null, null, 87],
+    [null, null, null, null, 42, null, 55, null, 64, null, 70, 85],
+    [6, null, 19, null, 28, null, null, 56, null, null, 88]
+  ]
+},
+{
+  id: 43,
+  rows: [
+    [5, null, 18, null, 37, null, 43, null, null, 72, null],
+    [null, 15, null, 27, null, 34, null, null, 61, null, 89],
+    [null, null, null, null, 42, null, 52, null, 60, null, 70, 84]
+  ]
+},
+{
+  id: 44,
+  rows: [
+    [null, null, null, null, 44, null, 56, null, 68, null, 73, 88],
+    [1, null, 12, null, 25, null, 49, null, 69, null, null],
+    [6, null, 26, null, 35, null, 59, null, 74, null]
+  ]
+},
+{
+  id: 45,
+  rows: [
+    [null, null, null, null, 40, null, 50, null, 63, null, 75, 83],
+    [3, null, 16, null, 30, null, null, 67, null, 87],
+    [null, 17, null, 24, null, 45, null, 57, null, 76, null]
+  ]
+},
+{
+  id: 46,
+  rows: [
+    [null, null, null, null, 46, null, 58, null, 62, null, 78, 80],
+    [2, null, 11, null, 21, null, 32, null, null, null, 79],
+    [7, null, 13, null, 28, null, 36, null, null, null, 81]
+  ]
+},
+{
+  id: 47,
+  rows: [
+    [null, null, null, null, 47, null, 53, null, 64, null, 71, 85],
+    [4, null, 20, null, 33, null, null, 65, null, 86],
+    [9, null, 14, null, 22, null, 38, null, 54, null]
+  ]
+},
+{
+  id: 48,
+  rows: [
+    [null, null, null, null, 41, null, 51, null, 66, null, 77, 82],
+    [null, 10, null, 23, null, 31, null, 48, null, 55, null],
+    [8, null, 19, null, 29, null, 39, null, null, null, 90]
+  ]
+},
+{
+  id: 49,
+  rows: [
+    [6, null, 13, null, 33, null, 52, null, 72, null],
+    [null, 18, null, 22, null, 46, null, 65, null, 81],
+    [8, null, 29, null, 37, null, 57, null, 76, null]
+  ]
+},
+{
+  id: 50,
+  rows: [
+    [2, null, 23, null, 45, null, 64, null, 71, null],
+    [null, 18, null, 32, null, 58, null, 78, 80, null],
+    [5, null, 25, null, 49, null, 69, null, 86, null]
+  ]
+},
+{
+  id: 51,
+  rows: [
+    [1, null, 25, null, 40, null, 61, null, 75],
+    [null, 11, null, 31, null, 59, null, 78, 85],
+    [8, 10, null, 36, null, 50, null, 71, null]
+  ]
+},
+{
+  id: 52,
+  rows: [
+    [8, 10, null, 36, null, 50, null, 71, null],
+    [null, 15, 26, null, 40, null, 60, null, 83],
+    [2, null, 21, null, 39, null, 56, null, 74]
+  ]
+},
+{
+  id: 53,
+  rows: [
+    [2, null, 23, null, 43, null, 60, null, 74],
+    [null, 12, null, 32, null, 53, null, 79, 80],
+    [5, null, 20, null, 49, null, 69, null, 84]
+  ]
+},
+{
+  id: 54,
+  rows: [
+    [6, null, 25, null, 42, null, 67, null, 75],
+    [null, 17, null, 38, null, 55, null, 70, 81],
+    [1, null, 21, null, 44, null, 66, null, 83]
+  ]
+},
+{
+  id: 55,
+  rows: [
+    [8, null, 27, null, 48, null, 66, null, 77],
+    [null, 16, null, 36, null, 57, null, 78, 88],
+    [3, null, 28, null, 47, null, 68, null, 87]
+  ]
+},
+{
+  id: 56,
+  rows: [
+    [3, null, 22, null, 45, null, 60, null, 72],
+    [6, null, 29, null, 48, null, 66, null, 86],
+    [null, 18, null, 38, null, 51, null, 78, 81]
+  ]
+},
+{
+  id: 57,
+  rows: [
+    [2, 13, null, 36, null, 58, null, 74, null],
+    [null, 19, 22, null, 47, null, 67, null, 89],
+    [8, null, 27, null, 38, null, 52, null, 79]
+  ]
+},
+{
+  id: 58,
+  rows: [
+    [3, null, 22, null, 42, null, 65, null, 72],
+    [null, 13, null, 31, null, 52, null, 79, 83],
+    [6, null, 27, null, 47, null, 61, null, 90]
+  ]
+},
+{
+  id: 59,
+  rows: [
+    [3, null, 12, null, 30, null, 53, null, 73],
+    [null, 16, null, 21, null, 41, null, 61, 87],
+    [9, null, 24, null, 35, null, 57, null, 70]
+  ]
+},
+{
+  id: 60,
+  rows: [
+    [3, null, 20, null, 43, null, 60, null, 71],
+    [null, 13, null, 33, null, 55, null, 79, 81],
+    [7, null, 25, null, 49, null, 68, null, 88]
+  ]
+},
+{
+  id: 61,
+  rows: [
+    [7, null, 26, null, 46, null, 63, null, 72],
+    [null, 15, null, 34, null, 56, null, 76, 89],
+    [5, null, 22, null, 48, null, 62, null, 86]
+  ]
+},
+{
+  id: 62,
+  rows: [
+    [4, null, 26, null, 41, null, 63, null, 73],
+    [null, 14, null, 34, null, 59, null, 77, 80],
+    [7, null, 29, null, 43, null, 68, null, 85]
+  ]
+},
+{
+  id: 63,
+  rows: [
+    [9, null, 12, null, 34, null, 59, null, 73],
+    [null, 19, null, 24, null, 44, null, 66, 84],
+    [7, null, 26, null, 35, null, 54, null, 70]
+  ]
+},
+{
+  id: 64,
+  rows: [
+    [5, null, 21, null, 40, null, 68, null, 71],
+    [null, 10, null, 30, null, 51, null, 77, 89],
+    [9, null, 24, null, 41, null, 65, null, 82]
+  ]
+},
+{
+  id: 65,
+  rows: [
+    [4, null, 14, null, 32, null, 55, null, 71],
+    [null, 17, null, 29, null, 42, null, 64, 86],
+    [9, null, 25, null, 38, null, 58, null, 76]
+  ]
+},
+{
+  id: 66,
+  rows: [
+    [6, null, 11, null, 35, null, 50, null, 72],
+    [null, 15, null, 27, null, 44, null, 63, 82],
+    [8, null, 28, null, 37, null, 59, null, 77]
+  ]
+},
+{
+  id: 67,
+  rows: [
+    [1, null, 20, null, 40, null, 64, null, 76],
+    [null, 10, null, 30, null, 56, null, 79, 88],
+    [2, null, 23, null, 46, null, 68, null, 87]
+  ]
+},
+{
+  id: 68,
+  rows: [
+    [4, null, 25, null, 41, null, 62, null, 75],
+    [null, 11, null, 33, null, 52, null, 77, 82],
+    [8, null, 28, null, 47, null, 67, null, 89]
+  ]
+},
+{
+  id: 69,
+  rows: [
+    [1, null, 21, null, 45, null, 62, null, 70],
+    [null, 17, null, 39, null, 50, null, 73, 81],
+    [4, null, 28, null, 48, null, 65, null, 90]
+  ]
+},
+{
+  id: 70,
+  rows: [
+    [1, 11, null, 39, null, 51, null, 78, null],
+    [null, 18, null, 20, null, 43, null, 63, 88],
+    [7, null, 28, null, 31, null, 55, null, 75]
+  ]
+},
+{
+  id: 71,
+  rows: [
+    [1, 11, null, null, null, 56, null, 61, 71],
+    [3, null, 23, null, 33, null, 58, null, 81],
+    [null, 14, null, 36, null, 40, null, 79, 86]
+  ]
+},
+{
+  id: 72,
+  rows: [
+    [2, 12, null, null, 43, null, 57, null, 70],
+    [4, null, null, 35, null, 59, null, 67, 82],
+    [null, 15, 26, null, 37, null, null, 72, 87]
+  ]
+},
+{
+  id: 73,
+  rows: [
+    [null, null, 22, null, 34, null, 42, null, 60, 71],
+    [3, null, 25, null, null, 50, null, 66, 81],
+    [5, 13, null, null, 44, null, 58, null, 76]
+  ]
+},
+{
+  id: 74,
+  rows: [
+    [null, 16, null, 24, null, 43, null, 63, 73],
+    [4, null, 27, null, 38, null, 51, null, 68],
+    [6, null, null, 45, null, 59, null, 78, 82]
+  ]
+},
+{
+  id: 75,
+  rows: [
+    [1, null, 14, null, 36, null, 44, null, 83],
+    [null, null, 27, null, 38, null, 50, null, 64, 88],
+    [null, 17, null, 28, null, 46, null, 69, 72]
+  ]
+},
+{
+  id: 76,
+  rows: [
+    [null, 15, null, 30, null, 45, null, 77, 84],
+    [2, null, 26, null, 37, null, 60, null, 89],
+    [null, 18, null, 29, null, 47, null, 52, 65, null]
+  ]
+},
+{
+  id: 77,
+  rows: [
+    [5, null, 16, null, null, null, 51, null, 62, 74],
+    [7, null, 27, null, 31, null, 56, null, null, 80],
+    [null, 19, null, 38, null, 47, null, null, 79, 81]
+  ]
+},
+{
+  id: 78,
+  rows: [
+    [6, 10, null, null, 48, null, 52, null, 70],
+    [8, null, null, 32, null, 57, null, 64, 86],
+    [null, 17, null, 20, null, 39, null, null, 75, 90]
+  ]
+},
+{
+  id: 79,
+  rows: [
+    [null, null, 22, null, 33, null, 46, null, 61, 71],
+    [7, null, 27, null, null, 53, null, 65, 83],
+    [9, 11, null, null, 49, null, 58, null, 73]
+  ]
+},
+{
+  id: 80,
+  rows: [
+    [null, 19, null, 22, null, 40, null, 63, 72],
+    [2, null, 29, null, 31, null, 54, null, 66],
+    [8, null, null, 48, null, 55, null, 75, 84]
+  ]
+},
+{
+  id: 81,
+  rows: [
+    [3, null, 12, null, 30, null, 41, null, 81],
+    [null, null, 20, null, 32, null, 51, null, 64, 87],
+    [null, 19, null, 23, null, 49, null, 67, 74]
+  ]
+},
+{
+  id: 82,
+  rows: [
+    [null, 10, null, 32, null, 41, null, 76, 82],
+    [4, null, 21, null, 34, null, 66, null, 88],
+    [null, 13, null, 23, null, 42, null, 54, 68, null]
+  ]
+},
+{
+  id: 83,
+  rows: [
+    [1, null, 18, null, null, null, 50, null, 65, 74],
+    [9, null, 21, null, 33, null, 55, null, 83],
+    [null, 16, null, 35, null, 41, null, 77, null, 89]
+  ]
+},
+{
+  id: 84,
+  rows: [
+    [1, null, 17, null, null, 46, null, 52, null, 75],
+    [4, null, null, 34, null, 55, null, 69, null, 80],
+    [null, 19, null, 24, null, 35, null, null, 78, 84]
+  ]
+},
+{
+  id: 85,
+  rows: [
+    [null, null, 23, null, 36, null, 42, null, 62, 76],
+    [2, null, 25, null, null, 53, null, 67, null, 85],
+    [5, null, 18, null, null, 47, null, 56, null, 79]
+  ]
+},
+{
+  id: 86,
+  rows: [
+    [null, 10, null, 24, null, 43, null, 61, 70],
+    [3, null, 26, null, 37, null, 54, null, 68],
+    [6, null, null, 48, null, 57, null, 77, 86]
+  ]
+},
+{
+  id: 87,
+  rows: [
+    [5, null, 11, null, 36, null, 44, null, 85],
+    [null, null, 25, null, 38, null, 55, null, 62, 90],
+    [null, 18, null, 27, null, 49, null, 69, null, 71]
+  ]
+},
+{
+  id: 88,
+  rows: [
+    [null, 10, null, 37, null, 40, null, 79, 82],
+    [6, null, 26, null, 39, null, 60, null, 89],
+    [null, 12, null, 28, null, 45, null, 58, 63, null]
+  ]
+},
+{
+  id: 89,
+  rows: [
+    [4, null, 14, null, null, null, 50, null, 61, 72],
+    [7, null, 25, null, 30, null, 59, null, 84],
+    [null, 16, null, 38, null, 42, null, 78, null, 90]
+  ]
+},
+{
+  id: 90,
+  rows: [
+    [5, null, 13, null, null, 45, null, 50, null, 70],
+    [8, null, null, 31, null, 57, null, 63, 81],
+    [null, 15, null, 29, null, 39, null, null, 73, 85]
+  ]
+},
+{
+  id: 91,
+  rows: [
+    [null, null, 20, null, 32, null, 41, null, 62, 71],
+    [6, null, 28, null, null, 51, null, 64, 87],
+    [9, null, 12, null, null, 46, null, 58, null, 72]
+  ]
+},
+{
+  id: 92,
+  rows: [
+    [null, 14, null, 21, null, 43, null, 63, 73],
+    [2, null, 29, null, 30, null, 52, null, 65],
+    [7, null, null, 46, null, 59, null, 74, 88]
+  ]
+},
+{
+  id: 93,
+  rows: [
+    [7, null, 11, null, 31, null, 44, null, 82],
+    [null, null, 22, null, 36, null, 56, null, 64, 86],
+    [null, 13, null, 20, null, 47, null, 66, null, 73]
+  ]
+},
+{
+  id: 94,
+  rows: [
+    [null, 12, null, 32, null, 45, null, 75, 83],
+    [8, null, 21, null, 37, null, 65, null, 87],
+    [null, 17, null, 26, null, 48, null, 53, 67, null]
+  ]
+},
+{
+  id: 95,
+  rows: [
+    [1, null, 10, null, null, null, 51, null, 66, 74],
+    [8, null, 22, null, 33, null, 53, null, 84],
+    [null, 15, null, 38, null, 44, null, 76, null, 88]
+  ]
+},
+{
+  id: 96,
+  rows: [
+    [2, null, 14, null, null, 49, null, 52, null, 75],
+    [9, null, null, 30, null, 54, null, 68, null, 85],
+    [null, 19, null, 28, null, 34, null, null, 77, 89]
+  ]
+},
+{
+  id: 97,
+  rows: [
+    [1, null, 28, null, null, 53, null, 69, null, 87],
+    [null, null, 23, null, 35, null, 40, null, 67, 76],
+    [6, null, 15, null, null, 47, null, 55, null, 78]
+  ]
+},
+{
+  id: 98,
+  rows: [
+    [null, 17, null, 24, null, 41, null, 60, 77],
+    [2, null, 29, null, 39, null, 54, null, 68],
+    [7, null, null, 48, null, 56, null, 79, 80]
+  ]
+},
+{
+  id: 99,
+  rows: [
+    [9, null, 11, null, 31, null, 42, null, 80],
+    [null, null, 20, null, 34, null, 59, null, 61, 86],
+    [null, 16, null, 25, null, 49, null, 69, null, 78]
+  ]
+},
+{
+  id: 100,
+  rows: [
+    [null, 13, null, 32, null, 40, null, 70, 87],
+    [3, null, 21, null, 35, null, 60, null, 90],
+    [null, 18, null, 24, null, 43, null, 57, 62, null]
+  ]
+},
+{
+  id: 101,
+  rows: [
+    [1, null, 14, null, 38, null, 44, null, 83],
+    [null, null, 20, null, 39, null, 51, null, 64, 88],
+    [null, 17, null, 28, null, 48, null, 69, 72, null]
+  ]
+},
+{
+  id: 102,
+  rows: [
+    [null, 18, null, 24, null, 43, null, 63, 73],
+    [4, null, 27, null, 38, null, 50, null, 68],
+    [6, null, null, 46, null, 59, null, 78, 82]
+  ]
+},
+{
+  id: 103,
+  rows: [
+    [null, null, 22, null, 34, null, 42, null, 60, 70],
+    [3, null, 25, null, null, 56, null, 66, 81],
+    [5, null, 18, null, null, 44, null, 58, null, 76]
+  ]
+},
+{
+  id: 104,
+  rows: [
+    [2, 12, null, null, 48, null, 57, null, 70],
+    [4, null, null, 36, null, 59, null, 67, 82],
+    [null, 16, null, 26, null, 37, null, null, 72, 87]
+  ]
+},
+{
+  id: 105,
+  rows: [
+    [1, 11, null, null, null, 56, null, 60, 71],
+    [3, null, 28, null, 33, null, 58, null, 81],
+    [null, 14, null, 38, null, 40, null, 79, 86]
+  ]
+},
+{
+  id: 106,
+  rows: [
+    [null, null, 34, null, 42, null, 55, null, 67, 79],
+    [null, null, 25, null, 38, null, 59, null, 68, 84],
+    [null, null, 39, null, 46, null, 69, null, 77, 87]
+  ]
+},
+{
+  id: 107,
+  rows: [
+    [1, null, 20, null, 32, null, 46, null, 65],
+    [7, null, 13, null, 25, null, 38, null, 47],
+    [9, null, 17, null, 28, null, 49, null, 67]
+  ]
+},
+{
+  id: 108,
+  rows: [
+    [6, null, 28, null, 41, null, 66, null, 83],
+    [null, 10, null, 38, null, 44, null, 52, 77],
+    [7, null, 29, null, 48, null, 69, null, 88]
+  ]
+},
+{
+  id: 109,
+  rows: [
+    [null, 12, null, 36, null, 56, null, 71, 84],
+    [null, 19, null, 38, null, 58, null, 75, 86],
+    [null, 18, null, 39, null, 59, null, 78, 90]
+  ]
+},
+{
+  id: 110,
+  rows: [
+    [null, null, null, 40, null, 51, null, 65, 73, 81],
+    [5, null, 14, null, 23, null, 46, null, 57],
+    [null, 29, null, 37, null, 49, null, 58, null, 67]
+  ]
+},
+{
+  id: 111,
+  rows: [
+    [null, null, null, 40, null, 54, null, 61, 70, 80],
+    [null, 14, null, 37, null, 41, null, 63, null, 82],
+    [8, null, 19, null, 26, null, 48, null, 57]
+  ]
+},
+{
+  id: 112,
+  rows: [
+    [null, null, 23, null, 46, null, 52, null, 64, 86],
+    [5, null, 15, null, 31, null, 47, null, 66],
+    [3, null, 17, null, 28, null, 55, null, 71]
+  ]
+},
+{
+  id: 113,
+  rows: [
+    [null, null, 21, null, 45, null, 57, null, 65, 88],
+    [4, null, 13, null, 30, null, 46, null, 67],
+    [1, null, 16, null, 25, null, 59, null, 74]
+  ]
+},
+{
+  id: 114,
+  rows: [
+    [null, 10, null, 20, null, 31, null, 41, null, 50],
+    [null, 11, null, 33, null, 48, null, null, 74, 81],
+    [null, 12, null, 23, null, null, 51, null, 77, 90]
+  ]
+},
+{
+  id: 115,
+  rows: [
+    [1, null, 18, null, 37, null, null, 62, null, 70],
+    [null, null, 24, null, 39, null, null, 65, 73, 87],
+    [7, null, 29, null, null, null, 69, null, 79, 88]
+  ]
+},
+{
+  id: 116,
+  rows: [
+    [null, null, 41, null, 56, null, 62, null, 71, 83],
+    [null, null, 21, null, 35, null, 43, null, 59, 67],
+    [7, null, 17, null, 27, null, 36, null, 46]
+  ]
+},
+{
+  id: 117,
+  rows: [
+    [1, null, 14, null, 20, null, null, 60, null, 80],
+    [2, null, 26, null, null, 54, null, 75, null, 82],
+    [3, null, 15, null, null, 56, null, 66, null, 78]
+  ]
+},
+{
+  id: 118,
+  rows: [
+    [null, 10, null, 22, null, 34, null, 50, null, 70],
+    [3, null, 26, null, 42, null, 54, null, 62],
+    [4, null, 14, null, null, 38, null, 46, null, 66]
+  ]
+},
+{
+  id: 119,
+  rows: [
+    [4, null, 13, null, 21, null, 42, null, 60],
+    [6, null, 16, null, 30, null, 51, null, 74],
+    [7, null, 24, null, 45, null, 63, null, 88]
+  ]
+},
+{
+  id: 120,
+  rows: [
+    [null, 10, null, 20, null, 40, null, 60, null, 80],
+    [1, null, 15, null, 35, null, 55, null, 70],
+    [5, null, 25, null, 45, null, 65, null, 80]
+  ]
+},
+{
+  id: 121,
+  rows: [
+    [null, 11, null, 32, null, 51, null, 70, 80],
+    [null, null, 21, null, 34, null, 42, null, 72, 84],
+    [null, 13, null, null, 47, null, 59, null, 74, 86]
+  ]
+},
+{
+  id: 122,
+  rows: [
+    [4, null, null, 32, null, 50, null, 76, 82],
+    [7, null, null, 44, null, 56, null, 78, 86],
+    [9, null, null, 38, null, null, 64, null, 79, 90]
+  ]
+},
+{
+  id: 123,
+  rows: [
+    [null, 13, null, 31, null, 53, null, 71, 82],
+    [null, 17, null, 23, null, 40, null, 67, 75],
+    [null, 19, null, 27, null, 34, null, 79, 87]
+  ]
+},
+{
+  id: 124,
+  rows: [
+    [7, null, null, 33, null, 46, null, 52, null, 89],
+    [8, null, 22, null, 48, null, 60, null, 90],
+    [null, null, 23, null, 39, null, 56, null, 66, 77]
+  ]
+},
+{
+  id: 125,
+  rows: [
+    [null, 12, null, 34, null, 54, null, 61, 77],
+    [3, null, 24, null, 41, null, 57, null, 78],
+    [null, 18, null, 37, null, 48, null, 69, 90]
+  ]
+},
+{
+  id: 126,
+  rows: [
+    [9, null, 27, null, 45, null, 53, null, 71],
+    [null, 15, null, 30, null, 55, null, 60, 86],
+    [null, null, 36, null, 49, null, 66, null, 78, 88]
+  ]
+},
+{
+  id: 127,
+  rows: [
+    [3, null, 21, null, 44, null, 53, null, 73],
+    [null, 13, null, 27, null, null, 59, null, 60, 86],
+    [9, null, 19, null, null, 49, null, 66, null, 89]
+  ]
+},
+{
+  id: 128,
+  rows: [
+    [4, null, 24, null, 33, null, 53, null, 73],
+    [null, 15, null, 29, null, 46, null, 60, 86],
+    [9, null, 19, null, 38, null, 57, null, 66]
+  ]
+},
+{
+  id: 129,
+  rows: [
+    [null, 12, null, 34, null, 58, null, 72, 88],
+    [7, null, 18, null, 20, null, 41, null, 64],
+    [null, null, 37, null, 49, null, 67, null, 77, 90]
+  ]
+},
+{
+  id: 130,
+  rows: [
+    [null, 12, null, 34, null, 52, null, 76, 82],
+    [1, null, 17, null, 27, null, 45, null, 66],
+    [8, null, null, 36, null, 59, null, 69, null, 89]
+  ]
+},
+{
+  id: 131,
+  rows: [
+    [3, 11, null, null, 40, null, 51, null, 75],
+    [null, null, 20, null, 34, null, 43, null, 61, 79],
+    [6, null, 25, null, 37, null, 57, null, 90]
+  ]
+},
+{
+  id: 132,
+  rows: [
+    [4, null, 13, null, null, 42, null, 52, null, 73],
+    [null, null, 21, null, 31, null, 44, null, 65, 79],
+    [null, 14, null, 33, null, 40, null, 54, null, 71]
+  ]
+},
+{
+  id: 133,
+  rows: [
+    [null, 14, null, 33, null, 40, null, 54, null, 71],
+    [3, null, 16, null, 23, null, null, 63, null, 75],
+    [9, null, null, 37, null, 43, null, 67, null, 82]
+  ]
+},
+{
+  id: 134,
+  rows: [
+    [4, null, 12, null, 39, null, 51, null, 75],
+    [null, 19, null, 27, null, null, 59, null, 61, 77],
+    [9, null, 28, null, 48, null, 64, null, 81]
+  ]
+},
+{
+  id: 135,
+  rows: [
+    [1, null, 13, null, 33, null, 54, null, 73],
+    [null, 14, null, 21, null, null, 55, null, 61, 79],
+    [7, null, 23, null, 47, null, 65, null, 85]
+  ]
+},
+{
+  id: 136,
+  rows: [
+    [null, 10, null, 32, null, 50, null, 71, 86],
+    [3, null, 21, null, null, 55, null, 62, null, 73],
+    [7, null, 29, null, 47, null, 60, null, 90]
+  ]
+},
+{
+  id: 137,
+  rows: [
+    [2, null, 22, null, 34, null, null, 70, 83],
+    [null, 11, null, 24, null, 46, null, 53, null, 60],
+    [9, null, 18, null, 38, null, null, 67, null, 88]
+  ]
+},
+{
+  id: 138,
+  rows: [
+    [5, null, 26, null, 35, null, null, 72, 84],
+    [null, 10, null, 28, null, 41, null, 56, null, 64],
+    [8, null, null, 39, null, 48, null, null, 76, 90]
+  ]
+},
+{
+  id: 139,
+  rows: [
+    [7, null, 20, null, 30, null, 41, null, 78],
+    [null, 12, null, 38, null, 52, null, 61, null, 85],
+    [9, null, 27, null, 49, null, 58, null, 65]
+  ]
+},
+{
+  id: 140,
+  rows: [
+    [null, 11, null, 31, null, 43, null, null, 78, 80],
+    [3, null, 21, null, 34, null, null, 60, null, 89],
+    [null, 13, null, 26, null, 48, null, 68, null, 79]
+  ]
+},
+{
+  id: 141,
+  rows: [
+    [1, null, 23, null, 32, null, 59, null, 74],
+    [5, null, 15, null, 27, null, null, 60, null, 84],
+    [null, 17, null, 38, null, 40, null, 65, null, 90]
+  ]
+},
+{
+  id: 142,
+  rows: [
+    [4, null, 14, null, 22, null, null, 58, null, 74],
+    [null, 15, null, 35, null, 59, null, 61, null, 89],
+    [null, 19, null, 37, null, 40, null, 64, null, 90]
+  ]
+},
+{
+  id: 143,
+  rows: [
+    [2, null, null, 30, null, 42, null, 51, null, 76],
+    [null, 11, null, 25, null, 36, null, 57, null, 83],
+    [null, 19, null, 28, null, 45, null, 63, null, 84]
+  ]
+},
+{
+  id: 144,
+  rows: [
+    [null, null, 22, null, 33, null, 56, null, 78, 81],
+    [null, 11, null, null, 46, null, 58, null, 69, 85],
+    [8, null, 27, null, 39, null, 49, null, 67]
+  ]
+},
+{
+  id: 145,
+  rows: [
+    [null, null, 23, null, 35, null, 58, null, 78, 83],
+    [null, 18, null, null, 40, null, 59, null, 60, 90],
+    [8, null, 24, null, 39, null, 48, null, 67]
+  ]
+},
+{
+  id: 146,
+  rows: [
+    [6, null, 23, null, 32, null, 53, null, 70],
+    [null, 16, null, null, 47, null, 59, null, 60, 82],
+    [null, null, 29, null, 39, null, null, 68, 77, 86]
+  ]
+},
+{
+  id: 147,
+  rows: [
+    [3, null, 20, null, 34, null, null, 60, 87],
+    [null, 11, null, 27, null, 42, null, 64, null, 88],
+    [9, null, 15, null, 39, null, 47, null, 79]
+  ]
+},
+{
+  id: 148,
+  rows: [
+    [4, null, 29, null, null, 50, null, 68, null, 81],
+    [null, 10, null, 31, null, 44, null, null, 72, 88],
+    [null, 17, null, 39, null, 48, null, 55, null, 79]
+  ]
+},
+{
+  id: 149,
+  rows: [
+    [1, null, 21, null, null, 52, null, 60, null, 80],
+    [6, null, 12, null, null, 41, null, 67, null, 70],
+    [null, null, 25, null, 30, null, 59, null, 77, 90]
+  ]
+},
+{
+  id: 150,
+  rows: [
+    [8, null, 22, null, 40, null, 66, null, 82],
+    [null, 13, null, 35, null, 46, null, 67, 74],
+    [null, null, 26, null, 37, null, 51, null, 69, 87]
+  ]
+}
+
 ];
 
-// ✅ Scriptin kapanışı
+// 🏆 Çinko flagleri
+let firstCinkoDone = false;
+let secondCinkoDone = false;
+let tombalaDone = false;
+
 function renderCard(card) {
   let html = `<div class="card" id="card-${card.id}"><div>Kart #${card.id}</div><table>`;
   card.rows.forEach(r => {
@@ -1378,6 +1382,9 @@ function renderCard(card) {
 
 function init() {
   drawn = [];
+  firstCinkoDone = false;
+  secondCinkoDone = false;
+  tombalaDone = false;
   document.getElementById("balls").innerHTML="";
   document.getElementById("right-panel").innerHTML="";
   document.getElementById("drawn-balls").innerHTML="";
@@ -1386,12 +1393,12 @@ function init() {
     document.getElementById("balls").innerHTML+=`<div class="ball" id="ball-${i}" onclick="toggleBall(${i})">${i}</div>`;
   cards.forEach(c=>{
     document.getElementById("right-panel").innerHTML+=renderCard(c);
+    c.status = null;
   });
   updateCount();
 }
 
 init();
-// ✅ Top çek
 function drawBall() {
   if (drawn.length >= totalBalls) return;
   let n;
@@ -1400,14 +1407,20 @@ function drawBall() {
   toggleBall(n);
 }
 
-// ✅ Manuel seç
+// ✅ Topa basınca aç/kapat
 function toggleBall(n) {
-  if (!drawn.includes(n)) drawn.push(n);
+  if (drawn.includes(n)) {
+    // zaten açıksa sil (kapat)
+    drawn = drawn.filter(x => x !== n);
+  } else {
+    // değilse ekle (yak)
+    drawn.push(n);
+  }
   updateBalls();
   checkCards();
 }
 
-// ✅ Güncelle
+// ✅ Topları güncelle
 function updateBalls() {
   for (let i = 1; i <= totalBalls; i++)
     document.getElementById("ball-" + i).classList.remove("active");
@@ -1417,28 +1430,42 @@ function updateBalls() {
   updateCount();
 }
 
+// ✅ Kaç top çekildi
 function updateCount() {
   document.getElementById("draw-count").innerText = `Çekilen: ${drawn.length}/${totalBalls}`;
 }
-
 // ✅ Çinko / Tombala kontrol
 function checkCards() {
   cards.forEach(card => {
-    let rows = card.rows.map(r => r.filter(n => drawn.includes(n)).length);
+    // Kartın kaç satırı tamamen dolmuş?
+    let completedRows = card.rows.filter(r => r.every(n => n === null || drawn.includes(n))).length;
     let status = "-";
-    if (rows.includes(5) && rows.filter(r => r == 5).length == 1) status = "1. Çinko";
-    if (rows.filter(r => r == 5).length == 2) status = "2. Çinko";
-    if (rows.filter(r => r == 5).length == 3) status = "Tombala";
 
+    if (!firstCinkoDone && completedRows >= 1) {
+      status = "1. Çinko";
+      firstCinkoDone = true;
+    } 
+    else if (!secondCinkoDone && completedRows >= 2) {
+      status = "2. Çinko";
+      secondCinkoDone = true;
+    } 
+    else if (!tombalaDone && completedRows === 3) {
+      status = "Tombala";
+      tombalaDone = true;
+    }
+
+    // Yeni statü varsa karta işle
     if (status !== "-" && card.status !== status) {
       card.status = status;
       showWinner(card);
     }
 
+    // Kartı işaretle
     let el = document.getElementById("card-" + card.id);
-    if (status !== "-") el.classList.add("highlight");
+    if (card.status) el.classList.add("highlight");
     else el.classList.remove("highlight");
 
+    // Kart üzerindeki numaraları renklendir
     card.rows.flat().forEach(n => {
       let td = document.getElementById(`card-${card.id}-${n}`);
       if (td) {
@@ -1448,7 +1475,6 @@ function checkCards() {
     });
   });
 }
-
 // ✅ Kazanan göster
 function showWinner(card) {
   let mini = `<div class="mini-card"><div>Kart #${card.id} → ${card.status}</div><table>`;
@@ -1466,8 +1492,13 @@ function showWinner(card) {
   document.getElementById("modal-content").innerHTML = `<h2>${card.status} - Kart #${card.id}</h2>` + renderCard(card);
 }
 
-function closeModal() { document.getElementById("modal").style.display = "none"; }
-function resetGame() { init(); }
+function closeModal() { 
+  document.getElementById("modal").style.display = "none"; 
+}
+
+function resetGame() { 
+  init(); 
+}
 </script>
 </body>
 </html>
