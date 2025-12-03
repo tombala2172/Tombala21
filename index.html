@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Moruk Tombala</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <style>
     body {
       background: #0d1117;
@@ -18,6 +19,7 @@
       background: #111827;
       padding: 10px;
       overflow-y: auto;
+      box-sizing: border-box;
     }
     .mini-card {
       background: #1f2937;
@@ -42,6 +44,7 @@
       padding: 10px;
       text-align: center;
       overflow-y: auto;
+      box-sizing: border-box;
     }
     #balls {
       display: grid;
@@ -57,6 +60,15 @@
       line-height: 35px;
       text-align: center;
       cursor: pointer;
+      user-select: none;
+      transition: transform 0.15s ease, background 0.15s ease;
+      font-size: 13px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .ball:hover {
+      transform: scale(1.08);
     }
     .ball.active {
       background: #facc15;
@@ -70,6 +82,12 @@
       color: #fff;
       cursor: pointer;
       border-radius: 5px;
+      font-size: 14px;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+    button:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
     }
     #right-panel {
       width: 40%;
@@ -79,6 +97,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
+      box-sizing: border-box;
     }
     .card {
       background: #1f2937;
@@ -86,6 +105,7 @@
       border-radius: 8px;
       padding: 6px;
       text-align: center;
+      box-sizing: border-box;
     }
     .card.highlight {
       border-color: #facc15;
@@ -123,9 +143,39 @@
       padding: 20px;
       border-radius: 8px;
       max-height: 80%;
+      max-width: 90%;
       overflow-y: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      box-sizing: border-box;
     }
-    #modal-content h2 { margin-top: 0; }
+    #modal-content h2 {
+      margin: 0 0 10px 0;
+      width: 100%;
+      text-align: center;
+      font-size: 18px;
+    }
+    #modal-content .card {
+      width: 250px; /* Modal içindeki kartların genişliği */
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        flex-direction: column;
+        height: auto;
+        overflow: auto;
+      }
+      #left-panel, #center-panel, #right-panel {
+        width: 100%;
+        height: auto;
+      }
+      #right-panel {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -148,15 +198,15 @@
   <div id="right-panel"></div>
 
   <div id="modal" onclick="closeModal()">
-    <div id="modal-content"></div>
+    <div id="modal-content" onclick="event.stopPropagation()"></div>
   </div>
 
 <script>
-const totalCards = 150;
 const totalBalls = 90;
-let drawn = [];
+// Kart sayısı, aşağıdaki 'cards' dizisinin uzunluğuna göre otomatik ayarlanacak.
+let totalCards;
 
-// 📌 Senin 150 kartın burada (tamamını koruyacağız)
+// BURAYA SİZİN GÖNDERDİĞİNİZ 150 KARTIN TAMAMI YAPIŞTIRILDI
 const cards = [
 {
   id: 1,
@@ -1358,13 +1408,16 @@ const cards = [
     [null, null, 26, null, 37, null, 51, null, 69, 87]
   ]
 }
-
 ];
 
-// 🏆 Çinko flagleri
-let firstCinkoDone = false;
-let secondCinkoDone = false;
-let tombalaDone = false;
+// Kart sayısını otomatik olarak ayarla
+totalCards = cards.length;
+
+let drawn = [];
+
+let firstCinkoWinners = [];
+let secondCinkoWinners = [];
+let tombalaWinners = [];
 
 function renderCard(card) {
   let html = `<div class="card" id="card-${card.id}"><div>Kart #${card.id}</div><table>`;
@@ -1380,132 +1433,239 @@ function renderCard(card) {
   return html;
 }
 
+function renderMiniCard(card, status) {
+  let mini = `<div class="mini-card"><div>Kart #${card.id} → ${status}</div><table>`;
+  card.rows.forEach(r => {
+    mini += "<tr>";
+    r.forEach(c => {
+      if (c) {
+        let active = drawn.includes(c) ? ' style="background:#facc15;color:#000;"' : "";
+        mini += `<td${active}>${c}</td>`;
+      } else {
+        mini += "<td></td>";
+      }
+    });
+    mini += "</tr>";
+  });
+  mini += "</table></div>";
+  return mini;
+}
+
 function init() {
   drawn = [];
-  firstCinkoDone = false;
-  secondCinkoDone = false;
-  tombalaDone = false;
-  document.getElementById("balls").innerHTML="";
-  document.getElementById("right-panel").innerHTML="";
-  document.getElementById("drawn-balls").innerHTML="";
-  document.getElementById("winners").innerHTML="";
-  for(let i=1;i<=totalBalls;i++)
-    document.getElementById("balls").innerHTML+=`<div class="ball" id="ball-${i}" onclick="toggleBall(${i})">${i}</div>`;
-  cards.forEach(c=>{
-    document.getElementById("right-panel").innerHTML+=renderCard(c);
-    c.status = null;
+  firstCinkoWinners = [];
+  secondCinkoWinners = [];
+  tombalaWinners = [];
+
+  const ballsEl = document.getElementById("balls");
+  const rightPanel = document.getElementById("right-panel");
+  const drawnBallsEl = document.getElementById("drawn-balls");
+  const winnersEl = document.getElementById("winners");
+
+  ballsEl.innerHTML = "";
+  rightPanel.innerHTML = "";
+  drawnBallsEl.innerHTML = "";
+  winnersEl.innerHTML = "";
+
+  // 1–90 arası toplar burada otomatik üretiliyor
+  for (let i = 1; i <= totalBalls; i++) {
+    ballsEl.innerHTML += `<div class="ball" id="ball-${i}" onclick="toggleBall(${i})">${i}</div>`;
+  }
+
+  // Tüm kartları çiz
+  cards.forEach(c => {
+    rightPanel.innerHTML += renderCard(c);
+    c.status = null; // Her kartın durumunu sıfırla
   });
+
   updateCount();
+  updateLeftPanelWinners();
 }
 
 init();
+
 function drawBall() {
   if (drawn.length >= totalBalls) return;
   let n;
-  do { n = Math.floor(Math.random() * totalBalls) + 1; } 
-  while (drawn.includes(n));
+  do {
+    n = Math.floor(Math.random() * totalBalls) + 1;
+  } while (drawn.includes(n));
   toggleBall(n);
 }
 
-// ✅ Topa basınca aç/kapat
 function toggleBall(n) {
   if (drawn.includes(n)) {
-    // zaten açıksa sil (kapat)
     drawn = drawn.filter(x => x !== n);
   } else {
-    // değilse ekle (yak)
     drawn.push(n);
   }
   updateBalls();
   checkCards();
 }
 
-// ✅ Topları güncelle
 function updateBalls() {
-  for (let i = 1; i <= totalBalls; i++)
-    document.getElementById("ball-" + i).classList.remove("active");
+  for (let i = 1; i <= totalBalls; i++) {
+    const el = document.getElementById("ball-" + i);
+    if (el) el.classList.remove("active");
+  }
 
-  drawn.forEach(n => document.getElementById("ball-" + n).classList.add("active"));
-  document.getElementById("drawn-balls").innerText = drawn.sort((a, b) => a - b).join(", ");
+  drawn.forEach(n => {
+    const el = document.getElementById("ball-" + n);
+    if (el) el.classList.add("active");
+  });
+
+  document.getElementById("drawn-balls").innerText =
+    drawn.slice().sort((a, b) => a - b).join(", ");
+
   updateCount();
 }
 
-// ✅ Kaç top çekildi
 function updateCount() {
-  document.getElementById("draw-count").innerText = `Çekilen: ${drawn.length}/${totalBalls}`;
+  document.getElementById("draw-count").innerText =
+    `Çekilen: ${drawn.length}/${totalBalls}`;
 }
-// ✅ Çinko / Tombala kontrol
+
 function checkCards() {
+  let currentDrawNewWinners = [];
+
   cards.forEach(card => {
-    // Kartın kaç satırı tamamen dolmuş?
-    let completedRows = card.rows.filter(r => r.every(n => n === null || drawn.includes(n))).length;
-    let status = "-";
+    let completedRows = 0;
+    card.rows.forEach(r => {
+      if (r.every(n => n === null || drawn.includes(n))) {
+        completedRows++;
+      }
+    });
 
-    if (!firstCinkoDone && completedRows >= 1) {
-      status = "1. Çinko";
-      firstCinkoDone = true;
-    } 
-    else if (!secondCinkoDone && completedRows >= 2) {
-      status = "2. Çinko";
-      secondCinkoDone = true;
-    } 
-    else if (!tombalaDone && completedRows === 3) {
-      status = "Tombala";
-      tombalaDone = true;
+    let newStatus = null;
+    if (completedRows === 3) {
+      newStatus = "Tombala";
+    } else if (completedRows === 2) {
+      newStatus = "2. Çinko";
+    } else if (completedRows === 1) {
+      newStatus = "1. Çinko";
     }
 
-    // Yeni statü varsa karta işle
-    if (status !== "-" && card.status !== status) {
-      card.status = status;
-      showWinner(card);
+    let oldStatus = card.status;
+
+    // Multi-winner logic: Check if a card achieved a new, higher status
+    if (newStatus === "Tombala" && oldStatus !== "Tombala") {
+      card.status = "Tombala";
+      if (!tombalaWinners.includes(card.id)) {
+        tombalaWinners.push(card.id);
+        currentDrawNewWinners.push({ card: card, status: "Tombala" });
+      }
+    } else if (newStatus === "2. Çinko" && oldStatus !== "2. Çinko" && oldStatus !== "Tombala") {
+      card.status = "2. Çinko";
+      if (!secondCinkoWinners.includes(card.id)) {
+        secondCinkoWinners.push(card.id);
+        currentDrawNewWinners.push({ card: card, status: "2. Çinko" });
+      }
+    } else if (newStatus === "1. Çinko" && oldStatus !== "1. Çinko" && oldStatus !== "2. Çinko" && oldStatus !== "Tombala") {
+      card.status = "1. Çinko";
+      if (!firstCinkoWinners.includes(card.id)) {
+        firstCinkoWinners.push(card.id);
+        currentDrawNewWinners.push({ card: card, status: "1. Çinko" });
+      }
     }
 
-    // Kartı işaretle
-    let el = document.getElementById("card-" + card.id);
-    if (card.status) el.classList.add("highlight");
-    else el.classList.remove("highlight");
+    // Kart highlight & numara boyaması
+    const cardEl = document.getElementById("card-" + card.id);
+    if (cardEl) {
+      if (card.status) cardEl.classList.add("highlight");
+      else cardEl.classList.remove("highlight");
+    }
 
-    // Kart üzerindeki numaraları renklendir
     card.rows.flat().forEach(n => {
-      let td = document.getElementById(`card-${card.id}-${n}`);
+      const td = document.getElementById(`card-${card.id}-${n}`);
       if (td) {
         if (drawn.includes(n)) td.classList.add("active");
         else td.classList.remove("active");
       }
     });
   });
+
+  if (currentDrawNewWinners.length > 0) {
+    displayWinnersModal(currentDrawNewWinners);
+  }
+  updateLeftPanelWinners();
 }
-// ✅ Kazanan göster
-function showWinner(card) {
-  let mini = `<div class="mini-card"><div>Kart #${card.id} → ${card.status}</div><table>`;
-  card.rows.forEach(r => {
-    mini += "<tr>";
-    r.forEach(c => {
-      if (c) { let active= drawn.includes(c)? ' style="background:#facc15;color:#000;"':""; mini += `<td${active}>${c}</td>`;} else mini += "<td></td>";
-    });
-    mini += "</tr>";
+
+function displayWinnersModal(winnersArray) {
+  let modalContentHtml = "";
+  winnersArray.forEach(winner => {
+    modalContentHtml += `
+      <div style="width: 100%; text-align: center;"><h2>${winner.status} - Kart #${winner.card.id}</h2></div>
+      ${renderCard(winner.card)}
+    `;
   });
-  mini += "</table></div>";
-  document.getElementById("winners").innerHTML += mini;
 
+  const modalContent = document.getElementById("modal-content");
+  modalContent.innerHTML = modalContentHtml;
   document.getElementById("modal").style.display = "flex";
-  document.getElementById("modal-content").innerHTML = `<h2${card.status} - Kart #${card.id}</h2>` + renderCard(card);
-  setTimeout(()=>{
-    card.rows.flat().forEach(n=>{
-      let td=document.getElementById(`card-${card.id}-${n}`);
-      if(td && drawn.includes(n)){td.style.background="#facc15";td.style.color="#000";}
+
+  // Modal içindeki kartlarda aktif numaraları renklendir
+  setTimeout(() => {
+    winnersArray.forEach(winner => {
+      winner.card.rows.flat().forEach(n => {
+        // QuerySelectorAll kullanıyoruz çünkü modal içinde birden fazla aynı ID'li td olabilir
+        const tdList = document.querySelectorAll(`#modal-content #card-${winner.card.id}-${n}`);
+        tdList.forEach(td => {
+          if (drawn.includes(n)) {
+            td.classList.add("active");
+          } else {
+            td.classList.remove("active");
+          }
+        });
+      });
     });
-  },20);
-  //>${card.status} - Kart #${card.id}</h2>` + renderCard(card);
+  }, 20);
 }
 
-function closeModal() { 
-  document.getElementById("modal").style.display = "none"; 
+function updateLeftPanelWinners() {
+  const winnersDiv = document.getElementById("winners");
+  winnersDiv.innerHTML = "";
+
+  // Tombala kazananları
+  if (tombalaWinners.length > 0) {
+    winnersDiv.innerHTML += `<h4>Tombala:</h4>`;
+    tombalaWinners.forEach(cardId => {
+      const card = cards.find(c => c.id === cardId);
+      if (card) winnersDiv.innerHTML += renderMiniCard(card, "Tombala");
+    });
+  }
+
+  // 2. Çinko kazananları (Tombala olmayanlar)
+  if (secondCinkoWinners.length > 0) {
+    winnersDiv.innerHTML += `<h4>2. Çinko:</h4>`;
+    secondCinkoWinners.forEach(cardId => {
+      if (!tombalaWinners.includes(cardId)) { // Eğer zaten tombala olmadıysa göster
+        const card = cards.find(c => c.id === cardId);
+        if (card) winnersDiv.innerHTML += renderMiniCard(card, "2. Çinko");
+      }
+    });
+  }
+
+  // 1. Çinko kazananları (2. Çinko veya Tombala olmayanlar)
+  if (firstCinkoWinners.length > 0) {
+    winnersDiv.innerHTML += `<h4>1. Çinko:</h4>`;
+    firstCinkoWinners.forEach(cardId => {
+      if (!secondCinkoWinners.includes(cardId) && !tombalaWinners.includes(cardId)) { // Eğer zaten 2. Çinko veya tombala olmadıysa göster
+        const card = cards.find(c => c.id === cardId);
+        if (card) winnersDiv.innerHTML += renderMiniCard(card, "1. Çinko");
+      }
+    });
+  }
 }
 
-function resetGame() { 
-  init(); 
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
+function resetGame() {
+  closeModal();
+  init();
 }
 </script>
 </body>
-  </html>
+</html>
+ 
