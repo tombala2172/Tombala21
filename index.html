@@ -1481,7 +1481,7 @@ function showWinner(card) {
   card.rows.forEach(r => {
     mini += "<tr>";
     r.forEach(c => {
-      if (c) mini += `<td>${c}</td>`; else mini += "<td></td>";
+      if (c) { let active= drawn.includes(c)? ' style="background:#facc15;color:#000;"':""; mini += `<td${active}>${c}</td>`;} else mini += "<td></td>";
     });
     mini += "</tr>";
   });
@@ -1489,7 +1489,14 @@ function showWinner(card) {
   document.getElementById("winners").innerHTML += mini;
 
   document.getElementById("modal").style.display = "flex";
-  document.getElementById("modal-content").innerHTML = `<h2>${card.status} - Kart #${card.id}</h2>` + renderCard(card);
+  document.getElementById("modal-content").innerHTML = `<h2${card.status} - Kart #${card.id}</h2>` + renderCard(card);
+  setTimeout(()=>{
+    card.rows.flat().forEach(n=>{
+      let td=document.getElementById(`card-${card.id}-${n}`);
+      if(td && drawn.includes(n)){td.style.background="#facc15";td.style.color="#000";}
+    });
+  },20);
+  //>${card.status} - Kart #${card.id}</h2>` + renderCard(card);
 }
 
 function closeModal() { 
@@ -1501,4 +1508,4 @@ function resetGame() {
 }
 </script>
 </body>
-</html>
+  </html>
