@@ -2,8 +2,8 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <title>Moruk Tombala - Sıralı Kazanma</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Moruk Tombala</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
     body {
       background: #0d1117;
@@ -161,7 +161,6 @@
       width: 250px;
       flex-shrink: 0;
     }
-
     @media (max-width: 900px) {
       body {
         flex-direction: column;
@@ -189,7 +188,7 @@
 
   <div id="center-panel">
     <h2>Moruk Tombala 🎉</h2>
-    <button onclick="drawBall()">Top Çek</button>
+    <button onclick="drawBall()" id="draw-button">Top Çek</button>
     <button onclick="resetGame()">Yeniden Başlat</button>
     <div id="balls"></div>
     <p id="draw-count"></p>
@@ -206,8 +205,10 @@ const totalBalls = 90;
 let currentStage = 1; // 1: 1. Çinko, 2: 2. Çinko, 3: Tombala
 let drawn = [];
 
-// 📌 Sizin sağladığınız 150 kart verisi buraya entegre edildi
+// Kartlarınızın tamamını buraya yapıştırın:
 const cards = [
+  // Örnek kartlar (lütfen kendi 150 kartınızı buraya tam olarak yapıştırın)
+
 {
   id: 1,
   rows: [
@@ -1407,8 +1408,12 @@ const cards = [
     [null, 13, null, 35, null, 46, null, 67, 74],
     [null, null, 26, null, 37, null, 51, null, 69, 87]
   ]
-}
+  },
+  // ... diğer kartlarınız
 ];
+
+// Kart başına kazanılan aşamaları tutmak için:
+cards.forEach(card => card.wins = []); // Başlangıçta boş dizi
 
 function renderCard(card) {
   let html = `<div class="card" id="card-${card.id}"><div>Kart #${card.id}</div><table>`;
@@ -1455,13 +1460,13 @@ function init() {
   }
 
   cards.forEach(c => {
-    c.status = null; // Her kartın durumunu sıfırla
+    c.wins = []; // Kazanma aşamalarını sıfırla
     document.getElementById("right-panel").innerHTML += renderCard(c);
   });
 
   updateCount();
-  updateLeftPanelWinners(); // Başlangıçta kazanan yok
-  enableBalls(); // Oyun başladığında toplar çekilebilir olsun
+  updateLeftPanelWinners();
+  enableBalls();
 }
 
 init();
@@ -1506,65 +1511,63 @@ function checkCards() {
   let newWinners = [];
 
   if (currentStage === 1) {
-    // 1. Çinko: İlk dolan satır (yani satırdaki tüm sayılar çekilen toplar arasında) olan kartlar
     cards.forEach(card => {
-      if (card.status) return; // Zaten kazanmışsa atla
-      for (let rowIndex = 0; rowIndex < 3; rowIndex++) {
-        const row = card.rows[rowIndex];
-        if (row.every(n => n === null || drawn.includes(n))) {
-          // Bu satır doldu, 1. Çinko aşamasında sadece ilk dolan satır önemli
-          card.status = "1. Çinko";
-          newWinners.push({ card, status: "1. Çinko" });
-          break; // Bu kart 1. Çinko olduysa diğer satırlarına bakma
+      if (!card.wins.includes("1. Çinko")) {
+        for (let rowIndex = 0; rowIndex < 3; rowIndex++) {
+          const row = card.rows[rowIndex];
+          if (row.every(n => n === null || drawn.includes(n))) {
+            card.wins.push("1. Çinko");
+            newWinners.push({ card, status: "1. Çinko" });
+            break;
+          }
         }
       }
     });
     if (newWinners.length > 0) {
-      currentStage = 2; // 1. Çinko tamamlandı, 2. Çinko aşamasına geç
+      currentStage = 2;
       showWinners(newWinners);
-      return; // Bu turda sadece 1. Çinko kazananları göster ve bitir
+      return;
     }
   }
 
   if (currentStage === 2) {
-    // 2. Çinko: İlk dolan 2 satır olan kartlar
     cards.forEach(card => {
-      if (card.status) return; // Zaten kazanmışsa atla
-      let completedRowsCount = 0;
-      card.rows.forEach(row => {
-        if (row.every(n => n === null || drawn.includes(n))) {
-          completedRowsCount++;
+      if (!card.wins.includes("2. Çinko")) {
+        let completedRowsCount = 0;
+        card.rows.forEach(row => {
+          if (row.every(n => n === null || drawn.includes(n))) {
+            completedRowsCount++;
+          }
+        });
+        if (completedRowsCount >= 2) {
+          card.wins.push("2. Çinko");
+          newWinners.push({ card, status: "2. Çinko" });
         }
-      });
-      if (completedRowsCount >= 2) { // En az 2 satır dolduysa
-        card.status = "2. Çinko";
-        newWinners.push({ card, status: "2. Çinko" });
       }
     });
     if (newWinners.length > 0) {
-      currentStage = 3; // 2. Çinko tamamlandı, Tombala aşamasına geç
+      currentStage = 3;
       showWinners(newWinners);
-      return; // Bu turda sadece 2. Çinko kazananları göster ve bitir
+      return;
     }
   }
 
   if (currentStage === 3) {
-    // Tombala: Tüm 3 satırı dolan kartlar
     cards.forEach(card => {
-      if (card.status) return; // Zaten kazanmışsa atla
-      if (card.rows.every(row => row.every(n => n === null || drawn.includes(n)))) {
-        card.status = "Tombala";
-        newWinners.push({ card, status: "Tombala" });
+      if (!card.wins.includes("Tombala")) {
+        if (card.rows.every(row => row.every(n => n === null || drawn.includes(n)))) {
+          card.wins.push("Tombala");
+          newWinners.push({ card, status: "Tombala" });
+        }
       }
     });
     if (newWinners.length > 0) {
       showWinners(newWinners);
-      disableBalls(); // Oyun bitti, toplar çekilemez
-      return; // Bu turda sadece Tombala kazananları göster ve bitir
+      disableBalls();
+      return;
     }
   }
 
-  // Kartların vurgulanması ve sol panelin güncellenmesi (eğer bu turda yeni kazanan yoksa ama kartlar güncellenmeli)
   highlightCards();
   updateLeftPanelWinners();
 }
@@ -1579,7 +1582,7 @@ function highlightCards() {
   cards.forEach(card => {
     const el = document.getElementById("card-" + card.id);
     if (!el) return;
-    if (card.status) el.classList.add("highlight");
+    if (card.wins.length > 0) el.classList.add("highlight");
     else el.classList.remove("highlight");
 
     card.rows.flat().forEach(n => {
@@ -1597,7 +1600,7 @@ function updateLeftPanelWinners() {
 
   const stages = ["1. Çinko", "2. Çinko", "Tombala"];
   stages.forEach(stage => {
-    const winners = cards.filter(c => c.status === stage);
+    const winners = cards.filter(c => c.wins.includes(stage));
     if (winners.length > 0) {
       winnersDiv.innerHTML += `<h4>${stage}:</h4>`;
       winners.forEach(card => {
@@ -1643,7 +1646,7 @@ function resetGame() {
 }
 
 function disableBalls() {
-  document.querySelector('#center-panel button[onclick="drawBall()"]').disabled = true;
+  document.getElementById("draw-button").disabled = true;
   for (let i = 1; i <= totalBalls; i++) {
     const el = document.getElementById("ball-" + i);
     if (el) el.style.pointerEvents = "none";
@@ -1651,7 +1654,7 @@ function disableBalls() {
 }
 
 function enableBalls() {
-  document.querySelector('#center-panel button[onclick="drawBall()"]').disabled = false;
+  document.getElementById("draw-button").disabled = false;
   for (let i = 1; i <= totalBalls; i++) {
     const el = document.getElementById("ball-" + i);
     if (el) el.style.pointerEvents = "auto";
@@ -1660,4 +1663,3 @@ function enableBalls() {
 </script>
 </body>
 </html>
- 
